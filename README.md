@@ -5,7 +5,7 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 ## Alunos integrantes da equipe
 
 * Carlos Daniel Fraga Fernandes
-* Nome completo do aluno 2
+* Victor Goddard Araujo Silva
 * Nome completo do aluno 3
 * Nome completo do aluno 4
 * Nome completo do aluno 4
@@ -13,6 +13,6 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 
 ## Professores responsáveis
 
-* Nome completo do professor 1
+* Joao Caram
 * Nome completo do professor 2
 
