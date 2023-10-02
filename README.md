@@ -6,7 +6,7 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 
 * Carlos Daniel Fraga Fernandes
 * Victor Goddard Araujo Silva
-* Nome completo do aluno 3
+* Victor Távora Valadares Coelho
 * Nome completo do aluno 4
 * Nome completo do aluno 4
 * Nome completo do aluno 4
