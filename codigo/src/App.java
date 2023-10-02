@@ -45,7 +45,9 @@ public class App {
     }
 
     public static void programa(int opcao, Scanner sc) {
-
+        Veiculo veiculo = new Veiculo();
+        String placa;
+        double litros;
         while (opcao != 0) {
             System.out.println(" ");
             System.out.println("Insira uma opção1: ");
@@ -56,7 +58,12 @@ public class App {
                     System.out.println("Saindo do sistema");
                     break;
                 case 1:
+
                     break;
+                case 2:
+                    System.out.println("Digite a quantidade de Litros que deseja abastecer");
+                    litros = sc.nextDouble();
+                    veiculo.abastecer(litros);
                 case 3:
                     System.out.println("A quantidade abastecida foi " + Veiculo.getTotalReabastecido() + " litros.");
                     break;
