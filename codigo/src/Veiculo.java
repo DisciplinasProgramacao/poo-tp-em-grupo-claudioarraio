@@ -22,6 +22,9 @@ public class Veiculo {
         this.totalReabastecido = totalReabastecido;
     }
 
+    public Veiculo() {
+    }
+
     public static String getPlaca() {
         return placa;
     }
@@ -48,11 +51,9 @@ public class Veiculo {
 
     }
 
-    public Double abastecer(Double litros) {
-
+    public void abastecer(Double litros) {
         this.totalReabastecido+=litros;
-        return tanque.abastecer(litros);
-
+        tanque.abastecer(litros);
     }
 
     public Double kmNoMes() {
