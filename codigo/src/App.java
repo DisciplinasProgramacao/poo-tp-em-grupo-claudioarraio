@@ -55,6 +55,8 @@ public class App {
                 case 0:
                     System.out.println("Saindo do sistema");
                     break;
+                case 1:
+                    break;
                 case 3:
                     System.out.println("A quantidade abastecida foi " + Veiculo.getTotalReabastecido() + " litros.");
                     break;
