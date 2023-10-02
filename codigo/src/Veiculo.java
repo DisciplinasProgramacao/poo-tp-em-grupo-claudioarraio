@@ -3,15 +3,15 @@ import java.util.*;
 public class Veiculo {
     private static int MAX_ROTAS = 30;
     private static double CONSUMO = 8.2;
-    private String placa;
+    private static String placa;
     private int quantRotas;
-    private ArrayList<Rota> rotas = new ArrayList<Rota>();
+    private static ArrayList<Rota> rotas = new ArrayList<Rota>();
     private Tanque tanque;
-    private Double totalReabastecido;
+    private static Double totalReabastecido;
 
 
     
-    public Double getTotalReabastecido() {
+    public static Double getTotalReabastecido() {
         return totalReabastecido;
     }
 
@@ -22,7 +22,7 @@ public class Veiculo {
         this.totalReabastecido = totalReabastecido;
     }
 
-    public String getPlaca() {
+    public static String getPlaca() {
         return placa;
     }
         public Tanque getTanque() {
@@ -71,7 +71,11 @@ public class Veiculo {
         return quilometragemMes;   
     }
 
-    public Double kmTotal() {
+     public static Double getKmNoMes() {
+        return kmTotal();
+    }
+
+    public static Double kmTotal() {
         Double quilometragemTotal = 0.0;
 
         for (Rota rota : rotas) {
@@ -81,6 +85,9 @@ public class Veiculo {
         return quilometragemTotal;
     }
     
+    public static Double getKmTotal() {
+        return kmTotal();
+    }
 
     private void percorrerRota(Rota rota) {
 
