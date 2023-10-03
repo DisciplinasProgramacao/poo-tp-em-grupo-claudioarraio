@@ -7,8 +7,13 @@ public class Frota {
 
     @Override
     public String toString() { // Relatorio
-        return "0.2";
+        for (Veiculo veiculo : veiculos){
+        String teste= "Litros Abastecidos: "+veiculo.getTotalReabastecido()+"\nKm no Mes: "+veiculo.kmNoMes()+"\n Km total: "+veiculo.kmTotal();
+        return teste;
+        };
+        return "Error";
     }
+
 
     public Veiculo localizarVeiculo(String placa) {
 
@@ -17,7 +22,7 @@ public class Frota {
                 return veiculo; // A placa foi encontrada
             }
         }
-        System.out.println("Veiculo nao encontrado"); // TEMP
+        System.out.println("Veiculo nao encontrado"); // TEMPORARIO
         return null;
 
     }
@@ -46,6 +51,11 @@ public class Frota {
         }
 
         return kmTotal;
+    }
+
+
+    public void getVeiculos(Veiculo veiculo) {
+        veiculos.add(veiculo);
     }
 
     // public Veiculo maiorKmMedia() {

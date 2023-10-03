@@ -27,4 +27,8 @@ public class Tanque {
 
     }
 
+    public Double getCapacidadeAtual() {
+        return this.capacidadeAtual;
+    }
+
 }

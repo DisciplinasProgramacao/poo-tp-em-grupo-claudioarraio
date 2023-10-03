@@ -3,15 +3,18 @@ import java.util.*;
 public class Veiculo {
     private static int MAX_ROTAS = 30;
     private static double CONSUMO = 8.2;
-    private String placa;
+    private static String placa;
     private int quantRotas;
-    private ArrayList<Rota> rotas = new ArrayList<Rota>();
+    private static ArrayList<Rota> rotas = new ArrayList<Rota>();
     private Tanque tanque;
+    private static Double totalReabastecido;
 
-    private Double totalReabastecido;
 
     
-    
+    public static Double getTotalReabastecido() {
+        return totalReabastecido;
+    }
+
     public Veiculo(String placa, int quantRotas, Tanque tanque, Double totalReabastecido) {
         this.placa = placa;
         this.quantRotas = quantRotas;
@@ -19,7 +22,10 @@ public class Veiculo {
         this.totalReabastecido = totalReabastecido;
     }
 
-    public String getPlaca() {
+    public Veiculo() {
+    }
+
+    public static String getPlaca() {
         return placa;
     }
         public Tanque getTanque() {
@@ -45,20 +51,44 @@ public class Veiculo {
 
     }
 
-    public Double abastecer(Double litros) {
-
-        return tanque.abastecer(litros);
-
+    public void abastecer(Double litros) {
+        this.totalReabastecido+=litros;
+        tanque.abastecer(litros);
     }
 
     public Double kmNoMes() {
-        return 0.2;
+        Calendar calAtual = Calendar.getInstance();
+        Double quilometragemMes = 0.0;
+
+        for (Rota rota : rotas) {
+            Calendar calRota = Calendar.getInstance();
+            calRota.setTime(rota.getData());
+
+            if (calAtual.get(Calendar.MONTH) == calRota.get(Calendar.MONTH)) {
+                quilometragemMes += rota.getQuilometragem();
+            }
+        }
+
+        return quilometragemMes;   
     }
 
-    public Double kmTotal() {
-        return 0.2;
+     public static Double getKmNoMes() {
+        return kmTotal();
+    }
+
+    public static Double kmTotal() {
+        Double quilometragemTotal = 0.0;
+
+        for (Rota rota : rotas) {
+            quilometragemTotal += rota.getQuilometragem();
+        }
+
+        return quilometragemTotal;
     }
     
+    public static Double getKmTotal() {
+        return kmTotal();
+    }
 
     private void percorrerRota(Rota rota) {
 
