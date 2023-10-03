@@ -5,11 +5,10 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 ## Alunos integrantes da equipe
 
 * Carlos Daniel Fraga Fernandes
+* Daniel Almeida Lopes
 * Victor Goddard Araujo Silva
 * Victor Távora Valadares Coelho
-* Nome completo do aluno 4
-* Nome completo do aluno 4
-* Nome completo do aluno 4
+* Willian Santos
 
 ## Professores responsáveis
 
