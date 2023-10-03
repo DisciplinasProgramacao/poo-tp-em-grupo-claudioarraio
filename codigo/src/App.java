@@ -1,10 +1,3 @@
-<<<<<<< Updated upstream
-public class App {
-    public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-    }
-}
-=======
 import java.time.*;
 import java.util.*;
 
@@ -54,4 +47,3 @@ public class App {
     }
 
 }
->>>>>>> Stashed changes
