@@ -1,4 +1,3 @@
-import java.time.*;
 import java.util.*;
 
 public class App {
@@ -17,7 +16,7 @@ public class App {
         // Registre algumas rotas
         Rota rota1 = new Rota(100.0, new Date());
         Rota rota2 = new Rota(110.0, new Date());
-        // Criando outras rotas
+        // Registre algumas rotas
         Rota rota3 = new Rota(10.0, new Date());
         Rota rota4 = new Rota(110.0, new Date());
 
@@ -30,8 +29,9 @@ public class App {
         veiculo2.addRota(rota4);
 
         // Adicione os veículos à frota
-        frota.addVeiculos(veiculo1);
-        frota.addVeiculos(veiculo2);
+        frota.addVeiculo(veiculo1);
+        frota.addVeiculo(veiculo2);
+       
 
         // System.out.println(frota.maiorKmMedia().getPlaca());
 

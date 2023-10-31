@@ -5,33 +5,31 @@ public class Frota {
     private int tamanhoFrota;
     private ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
 
+    // #region Relatórios
+    /**
+     * Método de relatório String
+     * 
+     * @return Placa, dados de litros abastecidos, km total, quantidade de rotas, km
+     *         no mês.
+     */
     @Override
-    public String toString() { // Relatorio
-        String teste="";
+    public String toString() { // Método de relatório
+        String relatorio = ""; // Inicializa a string de relatório
         for (Veiculo veiculo : veiculos) {
-            teste +="\n--------------------------\n"+ 
-            "Placa: " +veiculo.getPlaca()  + "\n Litros Abastecido: " +veiculo.getTotalReabastecido() + 
-            "\n Km total: " + veiculo.kmTotal()+ "\n Quantidade de rotas: " +veiculo.getQuantRotas() +"\n KM no mes:"+veiculo.kmNoMes();
+            relatorio += "\n--------------------------\n" +
+                    "Placa: " + veiculo.getPlaca() + "\n Litros Abastecidos: " + veiculo.getTotalReabastecido() +
+                    "\n Km Total: " + veiculo.kmTotal() + "\n Quantidade de Rotas: " + veiculo.getQuantRotas() +
+                    "\n KM no Mês: " + veiculo.kmNoMes();
         }
-       return teste;
+        return relatorio;
     }
 
+    // #endregion
 
-    //Placa:
-
-    public Veiculo localizarVeiculo(String placa) {
-
-        for (Veiculo veiculo : veiculos) {
-            if (veiculo.getPlaca().equals(placa)) {
-                return veiculo; // A placa foi encontrada
-
-            }
-        }
-        System.out.println("Veiculo nao encontrado"); // TEMPORARIO
-        return null;
-
-    }
-
+    // #region Métodos de comparação
+    /**
+     * Método para encontrar o veículo com maior quilometragem total.
+     */
     public Veiculo maiorKmTotal() {
 
         Tanque tanque = new Tanque(null, null);
@@ -43,26 +41,11 @@ public class Frota {
             }
         }
         return maiorKm;
-
     }
 
-    public Double kmTotal() { // kmTotal
-
-        Double kmTotal = 0.0;
-
-        for (Veiculo veiculo : veiculos) {
-
-            kmTotal += veiculo.kmTotal();
-
-        }
-
-        return kmTotal;
-    }
-
-    public void addVeiculos(Veiculo veiculo) {
-        veiculos.add(veiculo);
-    }
-
+    /**
+     * Método para encontrar o veículo com a maior quilometragem média por rota
+     */
     public Veiculo maiorKmMedia() {
 
         Double maiorMedia = 0.0;
@@ -76,7 +59,54 @@ public class Frota {
                 veiculo1 = veiculo;
             }
         }
-                    return veiculo1;
+        return veiculo1;
     }
+    // #endregion
+
+    // #region Manipulação de dados e pesquisa
+    /**
+     * 
+     * Método para adicionar um veículo à frota
+     * 
+     * @param veiculo
+     */
+    public void addVeiculo(Veiculo veiculo) {
+        veiculos.add(veiculo);
+    }
+
+    /**
+     * Método para localizar um veículo por placa.
+     * 
+     * @param placa
+     * @return veículo
+     */
+    public Veiculo localizarVeiculo(String placa) {
+
+        for (Veiculo veiculo : veiculos) {
+            if (veiculo.getPlaca().equals(placa)) {
+                return veiculo; // A placa foi encontrada
+            }
+        }
+        System.out.println("Veículo não encontrado"); // TEMPORÁRIO: Mensagem de erro
+        return null;
+    }
+
+    // #endregion
+
+    // #region Métodos de Calculos
+    /**
+     * Método para calcular a quilometragem total de todos os veículos na frota.
+     */
+    public Double kmTotal() {
+        Double kmTotal = 0.0;
+
+        for (Veiculo veiculo : veiculos) {
+            kmTotal += veiculo.kmTotal();
+        }
+
+        return kmTotal;
+    }
+
+    // #endregion
 
 }
