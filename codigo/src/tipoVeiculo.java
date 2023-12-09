@@ -1,6 +1,3 @@
-import java.io.*;
-import java.util.*;
-
 public enum tipoVeiculo {
 
 	CARRO(50d,10000d,10000d),
@@ -10,12 +7,12 @@ public enum tipoVeiculo {
 
 
 private Double capacidadeTanque;
-private Double manutencaoperiodica;
+private Double manutencaoPeriodica;
 private Double manutencaoPecas;
 
 tipoVeiculo (Double capacidadeTanque, Double manutencaoPeriodica,Double manutencaoPecas) {
     this.capacidadeTanque = capacidadeTanque;
-    this.manutencaoperiodica = manutencaoperiodica;
+    this.manutencaoPeriodica = manutencaoPeriodica;
      this.manutencaoPecas = manutencaoPecas;
 }
 
@@ -23,23 +20,13 @@ tipoVeiculo (Double capacidadeTanque, Double manutencaoPeriodica,Double manutenc
     return capacidadeTanque;
 }
 
-
 public Double getManutencaoPeriodica() {
-    return manutencaoperiodica;
+    return manutencaoPeriodica;
 }
-
 
 public Double getManutencaoPecas() {
     return manutencaoPecas;
 }
-
-
-
-
-
-
-
-
 
 
 }

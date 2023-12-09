@@ -3,6 +3,7 @@ public class Tanque {
     private Double capacidadeAtual;
     private Double capacidadeMax;
     private Double totalReabastecido;
+    private Combustivel combustivel;
 
     // #region Construtores
     /**
@@ -11,24 +12,12 @@ public class Tanque {
      * @param capacidadeAtual A capacidade atual do tanque em litros.
      * @param capacidadeMax   A capacidade máxima do tanque em litros.
      */
-    public Tanque(Double capacidadeAtual, Double capacidadeMax) {
+    public Tanque(Double capacidadeAtual, Double capacidadeMax, int valorTipo) {
         this.capacidadeAtual = capacidadeAtual;
         this.capacidadeMax = capacidadeMax;
-        this.totalReabastecido= 0d;
+        this.totalReabastecido = 0d;
+        this.combustivel = tipoCombustivel().tipoCombustivel;
     }
-    public Double getTotalReabastecido() {
-        return totalReabastecido;
-    }
-
-    /**
-     * Obtém a capacidade atual do tanque.
-     * 
-     * @return A capacidade atual do tanque em litros.
-     */
-    public Double getCapacidadeAtual() {
-        return this.capacidadeAtual;
-    }
-
     // #endregion
 
     // #region Métodos de Calculos
@@ -50,7 +39,7 @@ public class Tanque {
      * @return A autonomia máxima do veículo em quilômetros.
      */
     public Double autonomiaMaxima() {
-        return this.capacidadeMax * CONSUMO;
+        return this.capacidadeMax * combustivel.getConsumoMedio();
     }
 
     /**
@@ -60,8 +49,21 @@ public class Tanque {
      * @return A autonomia atual do veículo em quilômetros.
      */
     public Double autonomiaAtual() {
-        return this.capacidadeAtual * CONSUMO;
+        return this.capacidadeAtual * combustivel.getConsumoMedio();
     }
-    //#endregion
+
+    // #endregion
+    public Double getTotalReabastecido() {
+        return totalReabastecido;
+    }
+
+    /**
+     * Obtém a capacidade atual do tanque.
+     * 
+     * @return A capacidade atual do tanque em litros.
+     */
+    public Double getCapacidadeAtual() {
+        return this.capacidadeAtual;
+    }
 
 }
