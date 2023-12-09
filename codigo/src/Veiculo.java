@@ -7,6 +7,7 @@ public class Veiculo {
     private int quantRotas = 0;
     private ArrayList<Rota> rotas = new ArrayList<Rota>();
     public Tanque tanque;
+    public TipoVeiuculo veiculo;
 
 
 //#region Construtores 
@@ -18,10 +19,11 @@ public class Veiculo {
      * @param tanque            O tanque do veículo.
      * @param totalReabastecido O total de litros reabastecidos no veículo.
      */
-    public Veiculo(String placa, int quantRotas, Tanque tanque) {
+    public Veiculo(String placa, int quantRotas, Tanque tanque, int tipoVeículo) {
         this.placa = placa;
         this.quantRotas = quantRotas;
         this.tanque = tanque;
+        this.veiculo = determinarVeiculo().veiculo;
     }
 //#endregion
 
