@@ -17,7 +17,7 @@ public class Frota {
         String relatorio = ""; // Inicializa a string de relatório
         for (Veiculo veiculo : veiculos) {
             relatorio += "\n--------------------------\n" +
-                    "Placa: " + veiculo.getPlaca() + "\n Litros Abastecidos: " + veiculo.getTotalReabastecido() +
+                    "Placa: " + veiculo.getPlaca() + "\n Litros Abastecidos: " + veiculo.tanque.getTotalReabastecido() +
                     "\n Km Total: " + veiculo.kmTotal() + "\n Quantidade de Rotas: " + veiculo.getQuantRotas() +
                     "\n KM no Mês: " + veiculo.kmNoMes();
         }
@@ -33,7 +33,7 @@ public class Frota {
     public Veiculo maiorKmTotal() {
 
         Tanque tanque = new Tanque(null, null);
-        Veiculo maiorKm = new Veiculo("00", 0, tanque, null);
+        Veiculo maiorKm = new Veiculo("00", 0, tanque);
 
         for (Veiculo veiculo : veiculos) {
             if (veiculo.kmTotal() > maiorKm.kmTotal()) {
@@ -51,7 +51,7 @@ public class Frota {
         Double maiorMedia = 0.0;
         Double temp = 0.0;
         Tanque tanque1 = new Tanque(50.0, 60.0);
-        Veiculo veiculo1 = new Veiculo("null", 0, tanque1, 0.0);
+        Veiculo veiculo1 = new Veiculo("null", 0, tanque1);
         for (Veiculo veiculo : veiculos) {
             temp = veiculo.kmTotal() / veiculo.getQuantRotas();
             if (temp > maiorMedia) {

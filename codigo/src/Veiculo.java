@@ -1,17 +1,14 @@
 import java.util.*;
 
 public class Veiculo {
+    
     private static int MAX_ROTAS = 30;
-    private static double CONSUMO = 8.2; 
     private String placa;
     private int quantRotas = 0;
     private ArrayList<Rota> rotas = new ArrayList<Rota>();
-    private Tanque tanque;
-    private Double totalReabastecido;
+    public Tanque tanque;
 
-    public Double getTotalReabastecido() {
-        return totalReabastecido;
-    }
+
 //#region Construtores 
     /**
      * Construtor da classe Veiculo.
@@ -21,11 +18,10 @@ public class Veiculo {
      * @param tanque            O tanque do veículo.
      * @param totalReabastecido O total de litros reabastecidos no veículo.
      */
-    public Veiculo(String placa, int quantRotas, Tanque tanque, Double totalReabastecido) {
+    public Veiculo(String placa, int quantRotas, Tanque tanque) {
         this.placa = placa;
         this.quantRotas = quantRotas;
         this.tanque = tanque;
-        this.totalReabastecido = totalReabastecido;
     }
 //#endregion
 
@@ -55,7 +51,7 @@ public class Veiculo {
      *         não é suficiente.
      */
     public boolean addRota(Rota rota) {
-        if (autonomiaAtual() >= rota.getQuilometragem()) {
+        if (tanque.autonomiaAtual() >= rota.getQuilometragem()) {
             rotas.add(rota);
             return true;
         }
@@ -64,24 +60,6 @@ public class Veiculo {
 //#endregion
 
 //#region Métodos de Cálculos
-    /**
-     * Calcula a autonomia máxima do veículo com base no tanque atual e no consumo médio.
-     * 
-     * @return A autonomia máxima do veículo em quilômetros.
-     */
-    private Double autonomiaMaxima() {
-        return tanque.autonomiaMaxima();
-    }
-
-    /**
-     * Calcula a autonomia atual do veículo com base no tanque atual e no consumo
-     * médio.
-     * 
-     * @return A autonomia atual do veículo em quilômetros.
-     */
-    private Double autonomiaAtual() {
-        return this.tanque.autonomiaAtual();
-    }
 
     /**
      * Calcula a quilometragem total percorrida pelo veículo.
@@ -126,10 +104,6 @@ public class Veiculo {
      * @param litros A quantidade de litros a ser abastecida.
      * @return A capacidade atual do tanque após o abastecimento.
      */
-    public Double abastecer(Double litros) {
-        this.totalReabastecido += litros;
-        return tanque.abastecer(litros);
-    }
 
     /**
      * Método privado para percorrer uma rota (não usado no código atual).
@@ -138,6 +112,13 @@ public class Veiculo {
      */
     private void percorrerRota(Rota rota) {
         Double distPercorrida = rota.getQuilometragem();
+    
+        //Gastar o Combustivel (capacidadeAtual do objeto tanque Diminui)
+        //Adicionar a data na rota (atributo data no objeto rota é setado)
+
+                            INCOMPLETO
+    
+    
     }
 }
 

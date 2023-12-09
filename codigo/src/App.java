@@ -8,10 +8,10 @@ public class App {
 
         // Crie alguns veículos
         Tanque tanque1 = new Tanque(50.0, 60.0);
-        Veiculo veiculo1 = new Veiculo("ABC123", 0, tanque1, 0.0);
+        Veiculo veiculo1 = new Veiculo("ABC123", 0, tanque1);
 
         Tanque tanque2 = new Tanque(50.0, 60.0);
-        Veiculo veiculo2 = new Veiculo("BC123", 0, tanque1, 0.0);
+        Veiculo veiculo2 = new Veiculo("BC123", 0, tanque2);
 
         // Registre algumas rotas
         Rota rota1 = new Rota(100.0, new Date());
@@ -32,6 +32,7 @@ public class App {
         frota.addVeiculo(veiculo1);
         frota.addVeiculo(veiculo2);
        
+        veiculo1.percorrerRota(rota1);
 
         // System.out.println(frota.maiorKmMedia().getPlaca());
 

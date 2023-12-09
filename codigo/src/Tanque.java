@@ -2,6 +2,7 @@ public class Tanque {
     private static final Double CONSUMO = 8.2;
     private Double capacidadeAtual;
     private Double capacidadeMax;
+    private Double totalReabastecido;
 
     // #region Construtores
     /**
@@ -13,6 +14,10 @@ public class Tanque {
     public Tanque(Double capacidadeAtual, Double capacidadeMax) {
         this.capacidadeAtual = capacidadeAtual;
         this.capacidadeMax = capacidadeMax;
+        this.totalReabastecido= 0d;
+    }
+    public Double getTotalReabastecido() {
+        return totalReabastecido;
     }
 
     /**
@@ -45,7 +50,7 @@ public class Tanque {
      * @return A autonomia máxima do veículo em quilômetros.
      */
     public Double autonomiaMaxima() {
-        return this.capacidadeAtual * CONSUMO;
+        return this.capacidadeMax * CONSUMO;
     }
 
     /**
