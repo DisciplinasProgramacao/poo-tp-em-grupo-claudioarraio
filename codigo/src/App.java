@@ -6,6 +6,8 @@ public class App {
         // Crie um objeto de frota
         Frota frota = new Frota();
 
+        
+
         // Crie alguns veículos
         Tanque tanque1 = new Tanque(50.0, 60.0);
         Veiculo veiculo1 = new Veiculo("ABC123", 0, tanque1);

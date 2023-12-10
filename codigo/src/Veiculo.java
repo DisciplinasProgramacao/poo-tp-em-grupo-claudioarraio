@@ -1,11 +1,14 @@
 import java.util.*;
+import java.time.LocalDate;
 
-public class Veiculo {
+public class Veiculo implements IRepara{
     
     private static int MAX_ROTAS = 30;
     private String placa;
     private int quantRotas = 0;
     private ArrayList<Rota> rotas = new ArrayList<Rota>();
+    private double kmPeriodico = 0;
+    private double kmPecas = 0;
     public Tanque tanque;
     public TipoVeiuculo veiculo;
 
@@ -19,26 +22,11 @@ public class Veiculo {
      * @param tanque            O tanque do veículo.
      * @param totalReabastecido O total de litros reabastecidos no veículo.
      */
-    public Veiculo(String placa, int quantRotas, Tanque tanque, int tipoVeículo) {
+    public Veiculo(String placa, int quantRotas, Tanque tanque, int tipoVeículo, int tipoCombustivel) {
         this.placa = placa;
         this.quantRotas = quantRotas;
-        this.tanque = tanque;
-        this.veiculo = determinarVeiculo().veiculo;
-    }
-//#endregion
-
-//#region Getters e Setters
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public Tanque getTanque() {
-        return tanque;
-    }
-    
-    public int getQuantRotas() {
-        return quantRotas;
+        this.veiculo = veiculo.determinarVeiculo(tipoVeículo);
+        this.tanque = new Tanque(0d, veiculo.getCapacidadeTanque(), tipoCombustivel);
     }
 //#endregion
 
@@ -114,19 +102,47 @@ public class Veiculo {
      */
     private void percorrerRota(Rota rota) {
         Double distPercorrida = rota.getQuilometragem();
-    
+        kmPecas += distPercorrida;
+        kmPeriodico += distPercorrida;
+        queimarCombustivel(distPercorrida);
+        rota.setData(new Date());
+        verificarEstado();
+        
         //Gastar o Combustivel (capacidadeAtual do objeto tanque Diminui)
         //Adicionar a data na rota (atributo data no objeto rota é setado)
-
-                            INCOMPLETO
-    
-    
+        //verifica o estado do veiculo
+                           // INCOMPLETO
     }
-}
 
-// Placa:
-// Litros abastecidos:
-// Quantidade de rotas:
-// KM no mes:
-// KM total:
-// Km media:
+    public void ManutencaoPeriodica(){
+
+    }
+
+    public void ManutencaoPeca(){
+
+    }
+
+    public boolean verificarEstado(){
+        if (kmTotal() >= kmPeriodico*veiculo.getManutencaoPeriodica()){
+            return false;
+        }
+        else
+        return true;
+    }
+
+    //#region Getters e Setters
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public Tanque getTanque() {
+        return tanque;
+    }
+    
+    public int getQuantRotas() {
+        return quantRotas;
+    }
+//#endregion
+
+}

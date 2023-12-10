@@ -1,5 +1,4 @@
-public class Tanque {
-    private static final Double CONSUMO = 8.2;
+public class Tanque implements IAbastace{
     private Double capacidadeAtual;
     private Double capacidadeMax;
     private Double totalReabastecido;
@@ -28,8 +27,15 @@ public class Tanque {
      * @return A capacidade atual do tanque após o abastecimento.
      */
     public Double abastecer(Double litros) {
+        if((this.capacidadeAtual + litros) > capacidadeMax){
+            //exceção
+        }
         capacidadeAtual += litros;
         return capacidadeAtual;
+    }
+
+    public void queimarCombustivel(double km){
+        capacidadeAtual -= km/combustivel.getConsumoMedio();
     }
 
     /**
