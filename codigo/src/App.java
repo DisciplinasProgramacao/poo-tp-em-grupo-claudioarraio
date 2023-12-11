@@ -91,6 +91,7 @@ public class App {
             case 0:
                 limparTela();
                 abrirApp();
+                break;
             default:
                 System.out.println("Valor inválido");
                 break;
