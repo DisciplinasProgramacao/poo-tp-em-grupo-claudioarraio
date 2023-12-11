@@ -1,4 +1,9 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Frota {
 
@@ -74,6 +79,49 @@ public class Frota {
         veiculos.add(veiculo);
     }
 
+    public void salvarNoArquivo(String nomeArquivo) {
+        try (PrintWriter escritor = new PrintWriter(nomeArquivo)) {
+            for (Veiculo veiculo : veiculos) {
+                escritor.println(
+                        veiculo.getPlaca() + ";" +
+                                veiculo.getQuantRotas() + ";" +
+                                veiculo.getTanque().getCapacidadeAtual() + ";" +
+                                veiculo.getTanque().getCapacidadeMax() + ";" +
+                                veiculo.getTotalReabastecido());
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Erro ao salvar no arquivo: " + e.getMessage());
+        }
+    }
+
+    // Leitura de Arquivo:
+
+    public void lerArqFrota() throws FileNotFoundException {
+        File arqFrota = new File("codigo\\Util\\Frota");
+        Scanner leitor = new Scanner(arqFrota, "UTF-8");
+    
+        while (leitor.hasNextLine()) {
+            String linha = leitor.nextLine();
+            String[] partes = linha.split(";"); // Separe os atributos por ponto e vírgula
+    
+            // Lê as informações da frota de veículos
+            String placa = partes[0];
+            int quantRotas = Integer.parseInt(partes[1]);
+            Double capacidadeAtual = Double.parseDouble(partes[2]);
+            Double capacidadeMax = Double.parseDouble(partes[3]);
+            Double totalReabastecido = Double.parseDouble(partes[4]);
+    
+            // Crie o veículo e adicione-o à lista
+            Tanque tanque = new Tanque(capacidadeAtual, capacidadeMax);
+            Veiculo veiculo = new Veiculo(placa, quantRotas, tanque, totalReabastecido);
+            veiculos.add(veiculo);
+
+        }
+    
+        leitor.close();
+    }
+    
+
     /**
      * Método para localizar um veículo por placa.
      * 
@@ -105,6 +153,10 @@ public class Frota {
         }
 
         return kmTotal;
+    }
+
+    public Veiculo[] getVeiculos() {
+        return null;
     }
 
     // #endregion

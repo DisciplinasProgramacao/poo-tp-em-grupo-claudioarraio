@@ -10,10 +10,11 @@ import java.util.Scanner;
  */
 public class AppFrota {
 
+    // #region utilidades
+
     static Scanner teclado;
     static NumberFormat formatMoeda = NumberFormat.getCurrencyInstance();
-
-    // #region utilidades
+    static Frota frota = new Frota();
 
     /**
      * "Limpa" a tela (códigos de terminal VT-100)
@@ -71,39 +72,50 @@ public class AppFrota {
         leitor.close();
         return opcao;
     }
-    // #endregion
-
-    //// #region métodos do app (encapsulam ações de usuário)
-
-    // #endregion
-
-    // #region submenus do App
     public static Frota menuFrota() throws FileNotFoundException {
-        String nomeArq = "menuPedidos";
+        String nomeArq = "codigo\\Util\\menuFrota";
         int opcao = -1;
         limparTela();
-        Frota novo = null;
         opcao = menu(nomeArq);
         switch (opcao) {
             case 1 -> {
-                //novo = new veiculo();
+                System.out.println("Informe a Placa do Veículo:");
+                // Adicione aqui a lógica para lidar com a opção 1, se necessário.
             }
             case 2 -> {
-               // double distancia = Double.parseDouble(leitura("Pedido para entrega. Digite a distância do local"));
-               // novo = new PedidoDelivery(distancia);
+                // Certifique-se de que você está lendo a frota antes de imprimir.
+                System.out.println(frota.toString()); // Imprime toda a lista de frotas.
+                
             }
             default -> {
                 System.out.println("Tipo de pedido inválido");
             }
         }
-      //  novo = menuComidas(novo);
-        return novo;
-
+        pausa();
+        return frota;
     }
-
-    // #endregion
+    public static Frota relatorioFrota() throws FileNotFoundException {
+        String nomeArq = "codigo\\Util\\relatorioFrota";
+        int opcao = -1;
+        limparTela();
+        opcao = menu(nomeArq);
+        switch (opcao) {
+            case 1 -> {
+                 System.out.println(frota.toString()); // Imprime toda a lista de frotas
+            }
+            
+            default -> {
+                System.out.println("Tipo de pedido inválido");
+            }
+        }
+        pausa();
+        return frota;
+    }
+        
+       // #endregion
 
     public static void main(String[] args) throws Exception {
+        frota.lerArqFrota(); 
         teclado = new Scanner(System.in);
         String nomeArq = "codigo\\Util\\menuInicio";
         int opcao = -1;
@@ -111,7 +123,8 @@ public class AppFrota {
             limparTela();
             opcao = menu(nomeArq);
             switch (opcao) {
-               // case 1 -> pedidos.addElemento(menuPedido());
+                 case 1 -> menuFrota();
+                 case 2 -> relatorioFrota();
             }
         }
         System.out.println("VLW FLW OBG T+.");

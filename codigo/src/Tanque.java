@@ -59,4 +59,8 @@ public class Tanque {
     }
     //#endregion
 
+    public String getCapacidadeMax() {
+        return null;
+    }
+
 }
