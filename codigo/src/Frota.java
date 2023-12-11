@@ -1,9 +1,10 @@
+package src;
 import java.util.ArrayList;
 
 public class Frota {
 
     private int tamanhoFrota;
-    private ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+    private static ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
 
     // #region Relatórios
     /**

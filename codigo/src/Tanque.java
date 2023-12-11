@@ -1,4 +1,6 @@
-public class Tanque implements IAbastace{
+package src;
+
+public class Tanque implements IAbastece{
     private Double capacidadeAtual;
     private Double capacidadeMax;
     private Double totalReabastecido;
@@ -71,5 +73,4 @@ public class Tanque implements IAbastace{
     public Double getCapacidadeAtual() {
         return this.capacidadeAtual;
     }
-
 }

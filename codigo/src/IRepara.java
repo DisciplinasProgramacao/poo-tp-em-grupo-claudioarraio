@@ -1,3 +1,5 @@
+package src;
+
 public interface IRepara {
     public void ManutencaoPeriodica();
     public void ManutencaoPeca();

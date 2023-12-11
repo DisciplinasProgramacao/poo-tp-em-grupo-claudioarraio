@@ -1,3 +1,5 @@
+package src;
+
 public enum TipoVeiculo {
 
     CARRO(50d, 10000d, 10000d),

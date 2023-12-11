@@ -1,3 +1,4 @@
+package src;
 import java.util.*;
 import java.time.LocalDate;
 
@@ -100,7 +101,7 @@ public class Veiculo implements IRepara{
      * 
      * @param rota A rota a ser percorrida.
      */
-    private void percorrerRota(Rota rota) {
+    public void percorrerRota(Rota rota) {
         Double distPercorrida = rota.getQuilometragem();
         kmPecas += distPercorrida;
         kmPeriodico += distPercorrida;
