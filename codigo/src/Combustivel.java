@@ -14,6 +14,15 @@ public enum Combustivel {
         this.precoMedio = precoMedio;
     }
 
+    public static String imprimirValoresComb() {
+        StringBuilder sb = new StringBuilder(" Tipo do Combustivel:\n");
+
+        for (Combustivel combustivel : values()) {
+            sb.append(combustivel.ordinal() + 1).append("-").append(combustivel.name()).append("\n");
+        }
+        return sb.toString();
+    }
+
     public Double getConsumoMedio() {
         return consumoMedio;
     }

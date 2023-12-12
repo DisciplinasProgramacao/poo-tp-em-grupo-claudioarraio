@@ -2,5 +2,4 @@
 Cadastrar veículo
 Cadastrar rota
 Abastecer veículo
-Localizar veículo
 Percorrer rota

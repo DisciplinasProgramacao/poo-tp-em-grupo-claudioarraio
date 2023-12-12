@@ -3,6 +3,14 @@ package src;
 import java.util.Date;
 
 public class Rota {
+    
+    private static int proximoID = 1;
+    private int ID;
+    
+    public int getID() {
+        return ID;
+    }
+
     private double quilometragem;
     private Date data;
 
@@ -14,6 +22,7 @@ public class Rota {
      * @param data          A data em que a rota foi realizada.
      */
     public Rota(double quilometragem) {
+        this.ID=proximoID++;
         this.quilometragem = quilometragem;
         this.data = null;
     }
@@ -53,12 +62,12 @@ public class Rota {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
+sb.append("ID: "+ID);
         sb.append("quilometragen:" + quilometragem);
         if (data != null)
-            sb.append("Data de entrega" + data);
+            sb.append("\nData de entrega" + data);
         else{
-            sb.append("Ainda não entregue");
+            sb.append("\nAinda não entregue");
         }
 
         return sb.toString();

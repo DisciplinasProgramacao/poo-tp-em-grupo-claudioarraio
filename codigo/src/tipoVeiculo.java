@@ -20,6 +20,16 @@ public enum TipoVeiculo {
         this.nome = nome;
     }
 
+
+    public static String imprimirValoresVeic() {
+        StringBuilder sb = new StringBuilder("Tipo de Veículo:\n");
+
+        for (TipoVeiculo tipoVeiculo : values()) {
+            sb.append(tipoVeiculo.ordinal() + 1).append("-").append(tipoVeiculo.name()).append("\n");
+        }
+        return sb.toString();
+    }
+
     public Double getCapacidadeTanque() {
         return capacidadeTanque;
     }

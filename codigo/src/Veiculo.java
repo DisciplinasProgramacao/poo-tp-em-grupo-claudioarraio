@@ -98,15 +98,27 @@ public class Veiculo implements IRepara {
      * 
      * @param rota A rota a ser percorrida.
      */
-    public String percorrerRota(Rota rota) {
-        if(tanque.queimarCombustivel(rota.getQuilometragem())){
-        rota.setData(new Date());
-        verificarEstado();
-        return "Rota percorrida";
+    public String percorrerRota(int ID) {
+        for (Rota rota : rotas) {
+            if (rota.getID() == ID) {
+            rota.setData(new Date());
+            verificarEstado();
+            return "Rota percorrida";
         }
-        else{
-            return "Sem Combustivel suficiente para a rota";
+            else{
+                return "Sem Combustivel suficiente para a rota";
         }
+            }
+            return "Veiculo nao encontrado";
+    }
+
+    public Rota localizarRota(int ID) {
+        for (Rota rota : rotas) {
+            if (rota.getID() == ID) {
+                return rota; // Retorna a rota se o ID correspondente for encontrado
+            }
+        }
+        return null; // Retorna null se a rota não for encontrada
     }
 
     public String relatorioRotas() {
@@ -158,7 +170,7 @@ public class Veiculo implements IRepara {
     public String toString() {
         return "Veículo-->  Placa: " + placa + ", Tipo: " + tipoVeiculo + "kmTotal : " + kmTotal()
                 + ", Trocou de pecas" + manutencaopecas + ", Manutencao Periodica:" + manutencaoperiodica
-                + tanque.toString();
+                + tanque.toString() + "\n" + rotas.toString(); 
     }
 
 }

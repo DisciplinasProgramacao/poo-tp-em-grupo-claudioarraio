@@ -1,11 +1,11 @@
 package src;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import java.util.Date;
+import java.security.InvalidAlgorithmParameterException;
 
 public class App {
 
@@ -40,49 +40,35 @@ public class App {
 
                 System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
                 String placa = teclado.nextLine();
-                
-                nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\tipoVeiculo.txt";
-                opcao = menu(nomeArq);
-                int tipo = opcao;
-                nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\tipoCombustivel.txt";
-                opcao = menu(nomeArq);
+                System.out.println(Combustivel.imprimirValoresComb());
+                int tipo = teclado.nextInt();
+                System.out.println(TipoVeiculo.imprimirValoresVeic());
+                tipo = teclado.nextInt();
                 int combustivel = opcao;
                 Veiculo veiculo = new Veiculo(placa, tipo, combustivel);
                 frota.addVeiculo(veiculo);
-           
+
                 pausa();
 
             }
             case 2 -> { // CADASTRAR ROTA
 
                 // Crie alguns veículos
-    
-                Veiculo veiculo1 = new Veiculo("ABC123", 1,1);
-                Veiculo veiculo2 = new Veiculo("BC123",1,1);
+                System.out.println("🚛🛻 DIGITE A PLACA DO VEICULO 🚚🚗");
+                String placa = teclado.nextLine();
+                //frota.localizarVeiculo(teclado.nextLine());
 
-                System.out.println("🚛🛻  INFORME A QUILOMETRAGEM 🚚🚗");
-                Rota rota1 = new Rota(teclado.nextDouble());
-                teclado.nextLine();
-                System.out.println("🚛🛻  DIGITE A PLACA DO VEICULO 🚚🚗");
-                frota.localizarVeiculo(teclado.nextLine()).addRota(rota1);
+                // ex se nao achar
+               
+                System.out.println("🚛🛻 INFORME A QUILOMETRAGEM 🚚🚗");
+                Rota rota = new Rota(teclado.nextDouble());
 
-                // Registre algumas rotas
-              
-                Rota rota2 = new Rota(110.0d);
-                Rota rota3 = new Rota(10.0d);
-                Rota rota4 = new Rota(110.0d);
-                
-             
+                frota.localizarVeiculo(placa).addRota(rota);
 
-                // // Adicioanr Rota no respectivo veiculo
-                veiculo1.addRota(rota1);
-                veiculo1.addRota(rota2);
-                veiculo2.addRota(rota3);
-                veiculo2.addRota(rota4);
             }
             case 3 -> {
                 // Abastecer Veículo
-                System.out.println("🚛🛻  DIGITE A PLACA DO VEICULO 🚚🚗");
+                System.out.println("🚛🛻 DIGITE A PLACA DO VEICULO 🚚🚗");
                 String placa = teclado.nextLine();
                 frota.localizarVeiculo(placa);
                 // lançar ex
@@ -91,26 +77,32 @@ public class App {
                 frota.localizarVeiculo(placa).tanque.abastecer(litrosAbast);
                 pausa();
             }
-            case 4 -> { // Localizar Veiculo
+            case 4 -> { 
              
                 System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
                 String placa = teclado.nextLine();
-                System.out.println(frota.localizarVeiculo(placa));
-                pausa();
-
-            }
-            case 5 -> {
-                System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
-                String placa = teclado.nextLine();
                 try{
-                    System.out.println(frota.localizarVeiculo(placa).percorrerRota(null));
+                    System.out.println(frota.localizarVeiculo(placa));
+                    System.out.println("Digite o ID da rota: ");
+                    
+                    System.out.println(frota.localizarVeiculo(placa).percorrerRota(teclado.nextInt()));
+
                     System.out.println("Rota percorrida");
                     pausa();
                 }
                 catch(Exception IlegallArgumentException){
                     System.out.println("Erro");
                 }
+
             }
+
+            //default {
+               // catch (IllegalArgumentException e) {
+                   // opcao = -1;
+                 //   System.out.println("Favor digitar apenas números.");
+               //     pausa();
+             //   }
+           // }
         }
     }
 
@@ -165,7 +157,14 @@ public class App {
         }
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
-        int opcao = Integer.parseInt(teclado.nextLine());
+        int opcao;
+       // try {
+            opcao = Integer.parseInt(teclado.nextLine());    
+        //} catch (NumberFormatException e) {
+           // opcao = -1;
+            //System.out.println("Favor digitar apenas valores validos.");
+            //pausa();
+        //}
         leitor.close();
         return opcao;
     }
