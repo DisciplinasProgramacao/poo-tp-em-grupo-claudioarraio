@@ -20,7 +20,7 @@ public class Frota {
         for (Veiculo veiculo : veiculos) {
             relatorio += "\n--------------------------\n" +
                     "Placa: " + veiculo.getPlaca() + "\n Litros Abastecidos: " + veiculo.tanque.getTotalReabastecido() +
-                    "\n Km Total: " + veiculo.kmTotal() + "\n Quantidade de Rotas: " + veiculo.getQuantRotas() +
+                    "\n Km Total: " + veiculo.kmTotal() + "\n Quantidade de Rotas: " + veiculo.quantRotas() +
                     "\n KM no Mês: " + veiculo.kmNoMes();
         }
         return relatorio;
@@ -34,9 +34,9 @@ public class Frota {
      */
     public Veiculo maiorKmTotal() {
 
-        Tanque tanque = new Tanque(null, null);
-        Veiculo maiorKm = new Veiculo("00", 0, tanque);
+               Veiculo maiorKm=veiculos.get(0);
 
+//REVISAR
         for (Veiculo veiculo : veiculos) {
             if (veiculo.kmTotal() > maiorKm.kmTotal()) {
                 maiorKm = veiculo;
@@ -50,12 +50,13 @@ public class Frota {
      */
     public Veiculo maiorKmMedia() {
 
+//REVISAR
+
         Double maiorMedia = 0.0;
         Double temp = 0.0;
-        Tanque tanque1 = new Tanque(50.0, 60.0);
-        Veiculo veiculo1 = new Veiculo("null", 0, tanque1);
+        Veiculo veiculo1=veiculos.get(0);
         for (Veiculo veiculo : veiculos) {
-            temp = veiculo.kmTotal() / veiculo.getQuantRotas();
+            temp = veiculo.kmTotal() / veiculo.quantRotas();
             if (temp > maiorMedia) {
                 maiorMedia = temp;
                 veiculo1 = veiculo;
@@ -96,11 +97,13 @@ public class Frota {
         for (Veiculo veiculo : veiculos) {
             if (veiculo.getPlaca().equals(placa)) {
                 return veiculo; // A placa foi encontrada
+             
             }
         }
-        System.out.println("Veículo não encontrado"); // TEMPORÁRIO: Mensagem de erro
+        System.out.println("Veículo não encontrado"); // TEMPORÁRIO: Mensagem de erro EXCEÇÃO
         return null;
     }
+
 
     // #endregion
 

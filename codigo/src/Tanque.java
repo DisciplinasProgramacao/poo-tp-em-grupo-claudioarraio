@@ -4,7 +4,7 @@ public class Tanque implements IAbastece{
     private Double capacidadeAtual;
     private Double capacidadeMax;
     private Double totalReabastecido;
-    private Combustivel combustivel;
+    public Combustivel combustivel;
 
     // #region Construtores
     /**
@@ -13,11 +13,11 @@ public class Tanque implements IAbastece{
      * @param capacidadeAtual A capacidade atual do tanque em litros.
      * @param capacidadeMax   A capacidade máxima do tanque em litros.
      */
-    public Tanque(Double capacidadeAtual, Double capacidadeMax, int valorTipo) {
+    public Tanque(Double capacidadeAtual, Double capacidadeMax, Combustivel tipoCombustivel) {
         this.capacidadeAtual = capacidadeAtual;
         this.capacidadeMax = capacidadeMax;
         this.totalReabastecido = 0d;
-        this.combustivel = tipoCombustivel().tipoCombustivel;
+        this.combustivel = tipoCombustivel;
     }
     // #endregion
 
@@ -28,11 +28,14 @@ public class Tanque implements IAbastece{
      * @param litros A quantidade de litros a ser abastecida.
      * @return A capacidade atual do tanque após o abastecimento.
      */
+    @Override
     public Double abastecer(Double litros) {
         if((this.capacidadeAtual + litros) > capacidadeMax){
             //exceção
+            return 0d;
         }
         capacidadeAtual += litros;
+        totalReabastecido+=litros;
         return capacidadeAtual;
     }
 
@@ -73,4 +76,21 @@ public class Tanque implements IAbastece{
     public Double getCapacidadeAtual() {
         return this.capacidadeAtual;
     }
+
+
+    public Double valorGastoCombustivel(){
+
+        return totalReabastecido*combustivel.getPrecoMedio();
+
+
+    }
+
+
+
+    @Override
+    public String toString() {
+
+        return ", Combustivel: "+combustivel.toString()+", totalReabastecido: "+totalReabastecido+", Total gasto em combustivel: "+valorGastoCombustivel();
+    }
+
 }

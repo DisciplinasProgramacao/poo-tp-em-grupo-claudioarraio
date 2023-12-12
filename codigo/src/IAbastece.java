@@ -1,5 +1,5 @@
 package src;
 
 public interface IAbastece {
-    public double Abastecer();
+    public Double abastecer(Double litros);
 }

@@ -1,39 +1,41 @@
 package src;
+
 import java.util.*;
 import java.time.LocalDate;
 
-public class Veiculo implements IRepara{
-    
-    private static int MAX_ROTAS = 30;
-    private ArrayList<Rota> rotas = new ArrayList<Rota>();
-    private double kmPeriodico = 0;
-    private double kmPecas = 0;
-    private int quantRotas = 0;
+public class Veiculo implements IRepara {
 
+    private static int MAX_ROTAS = 30;
+    private ArrayList<Rota> rotas;
     private String placa;
     public Tanque tanque;
+    int manutencaopecas = 0;
+    int manutencaoperiodica = 0;
     public TipoVeiculo tipoVeiculo;
-    public Combustivel tipoCombustivel;
 
-
-//#region Construtores 
+    // #region Construtores
     /**
      * Construtor da classe Veiculo.
      * 
-     * @param placa             A placa do veículo.
-     * @param quantRotas        A quantidade de rotas realizadas pelo veículo.
-     * @param tipoVeiculo       (ex: carro, caminhão, entre outros) Define as capacidades de tanque, manutenção períodia, manutenção de peças.
-     * @param totalReabastecido O total de litros reabastecidos no veículo.
+     * @param placa           A placa do veículo
+     * @param numTipoVeiculo
+     * @param TipoCombustivel
      */
-    public Veiculo(String placa, TipoVeiculo tipoVeiculo, Combustivel tipoCombustivel) {
+    public Veiculo(String placa, int numTipoVeiculo, int tipoCombustivel) {
+        this.rotas = new ArrayList<Rota>();
         this.placa = placa;
-        this.quantRotas = 0;
-        this.tipoVeiculo =tipoVeiculo;
-        this.tipoCombustivel = tipoCombustivel;
+        this.tipoVeiculo = TipoVeiculo.determinarVeiculo(numTipoVeiculo);
+        this.tanque = new Tanque(0d, tipoVeiculo.getCapacidadeTanque(), Combustivel.tipoCombustivel(tipoCombustivel));
     }
-//#endregion
 
-//#region Manipulação de Dados
+    public int quantRotas() {
+        return rotas.size();
+
+    }
+
+    // #endregion
+
+    // #region Manipulação de Dados
 
     /**
      * Adiciona uma rota à lista de rotas do veículo, desde que haja autonomia
@@ -50,9 +52,9 @@ public class Veiculo implements IRepara{
         }
         return false;
     }
-//#endregion
+    // #endregion
 
-//#region Métodos de Cálculos
+    // #region Métodos de Cálculos
 
     /**
      * Calcula a quilometragem total percorrida pelo veículo.
@@ -89,51 +91,54 @@ public class Veiculo implements IRepara{
 
         return quilometragemMes;
     }
-//#endregion
+    // #endregion
 
     /**
-     * Abastece o veículo com a quantidade especificada de litros.
-     * 
-     * @param litros A quantidade de litros a ser abastecida.
-     * @return A capacidade atual do tanque após o abastecimento.
-     */
-
-    /**
-     * Método privado para percorrer uma rota (não usado no código atual).
+     * Método publico para percorrer uma rota (não usado no código atual).
      * 
      * @param rota A rota a ser percorrida.
      */
     public void percorrerRota(Rota rota) {
-        Double distPercorrida = rota.getQuilometragem();
-        kmPecas += distPercorrida;
-        kmPeriodico += distPercorrida;
-        queimarCombustivel(distPercorrida);
+
+        tanque.queimarCombustivel(rota.getQuilometragem());
         rota.setData(new Date());
         verificarEstado();
-        
-        //Gastar o Combustivel (capacidadeAtual do objeto tanque Diminui)
-        //Adicionar a data na rota (atributo data no objeto rota é setado)
-        //verifica o estado do veiculo
-                           // INCOMPLETO
     }
 
-    public void ManutencaoPeriodica(){
+    public String relatorioRotas() {
 
-    }
+        StringBuilder sb = new StringBuilder();
 
-    public void ManutencaoPeca(){
-
-    }
-
-    public boolean verificarEstado(){
-        if (kmTotal() >= kmPeriodico * veiculo.getManutencaoPeriodica()){
-            return false;
+        for (Rota rota : rotas) {
+            sb.append(rota.toString());
         }
-        else
-        return true;
+        return sb.toString();
     }
 
-    //#region Getters e Setters
+    @Override
+    public void manutencaoPeriodica() {
+        manutencaoperiodica += 1;
+    }
+
+    @Override
+    public void ManutencaoPeca() {
+        manutencaopecas += 1;
+    }
+
+    @Override
+    public boolean verificarEstado() {
+        if (kmTotal() >= manutencaoperiodica + 1 * tipoVeiculo.getManutencaoPeriodica()) {
+            manutencaoPeriodica();
+            return true;
+        } else if (kmTotal() >= manutencaopecas + 1 * tipoVeiculo.getManutencaoPecas()) {
+            ManutencaoPeca();
+            return true;
+
+        }
+        return false;
+    }
+
+    // #region Getters e Setters
 
     public String getPlaca() {
         return placa;
@@ -142,21 +147,14 @@ public class Veiculo implements IRepara{
     public Tanque getTanque() {
         return tanque;
     }
-    
-    public int getQuantRotas() {
-        return quantRotas;
-    }
-//#endregion
 
-    @Override
-    public boolean verificarEstado(double kmTotal) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verificarEstado'");
-    }
+    // #endregion
 
     @Override
     public String toString() {
-        return "Veículo-->  Placa: " + placa + ", Tipo: " + tipoVeiculo + ", Combustível: " + tipoCombustivel;
+        return "Veículo-->  Placa: " + placa + ", Tipo: " + tipoVeiculo + "kmTotal : " + kmTotal()
+                + ", Trocou de pecas" + manutencaopecas + ", Manutencao Periodica:" + manutencaoperiodica
+                + tanque.toString();
     }
 
 }

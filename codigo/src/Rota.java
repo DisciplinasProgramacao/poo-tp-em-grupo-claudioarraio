@@ -6,22 +6,23 @@ public class Rota {
     private double quilometragem;
     private Date data;
 
-    //#region Construtor
+    // #region Construtor
     /**
      * Construtor da classe Rota.
      * 
      * @param quilometragem A quilometragem percorrida durante a rota.
-     * @param data A data em que a rota foi realizada.
+     * @param data          A data em que a rota foi realizada.
      */
-    public Rota(double quilometragem, Date data) {
+    public Rota(double quilometragem) {
         this.quilometragem = quilometragem;
-        this.data = data;
+        this.data = null;
     }
-//#endregion
+    // #endregion
 
-//#region Getters e Setters
+    // #region Getters e Setters
     /**
      * Obtém a data da rota.
+     * 
      * @return A data da rota.
      */
     public Date getData() {
@@ -34,22 +35,33 @@ public class Rota {
 
     /**
      * Obtém a quilometragem percorrida durante a rota.
+     * 
      * @return A quilometragem da rota.
      */
     public double getQuilometragem() {
         return quilometragem;
     }
-//#endregion
+    // #endregion
 
-//#region Relatórios
+    // #region Relatórios
     /**
      * Método de relatório String
-     * @return Retorna um valor fixo como exemplo; pode ser personalizado para fornecer informações relevantes.
+     * 
+     * @return Retorna um valor fixo como exemplo; pode ser personalizado para
+     *         fornecer informações relevantes.
      */
     @Override
     public String toString() {
-return "0.2";    
+        StringBuilder sb = new StringBuilder();
 
+        sb.append("quilometragen:" + quilometragem);
+        if (data != null)
+            sb.append("Data de entrega" + data);
+        else{
+            sb.append("Ainda não entregue");
+        }
+
+        return sb.toString();
     }
-//#endregion
+    // #endregion
 }
