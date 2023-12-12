@@ -1,6 +1,4 @@
 package src;
-import java.io.*;
-import java.util.*;
 
 public enum Combustivel {
 
@@ -30,14 +28,15 @@ public enum Combustivel {
 
     }
 
-    public Combustivel tipoCombustivel(int valor) {
+    public static Combustivel tipoCombustivel(int valor) {
         if (valor == 1) {
             return Combustivel.ALCOOL;
-        }else if (valor == 2){
+        } else if (valor == 2) {
             return Combustivel.GASOLINA;
-        }else{
+        } else if (valor == 3) {
             return Combustivel.DIESEL;
-        }
+        } else
+            throw new IllegalArgumentException("Valor inválido para tipo de combustível");
 
     }
 

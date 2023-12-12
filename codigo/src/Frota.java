@@ -1,9 +1,10 @@
 package src;
+
 import java.util.ArrayList;
 
 public class Frota {
 
-    private int tamanhoFrota;
+    private int tamanhoFrota = 0;
     private static ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
 
     // #region Relatórios
@@ -71,8 +72,17 @@ public class Frota {
      * 
      * @param veiculo
      */
-    public void addVeiculo(Veiculo veiculo) {
-        veiculos.add(veiculo);
+    public String addVeiculo(Veiculo veiculo) {
+
+        if (veiculo != null) {
+            veiculos.add(veiculo);
+            tamanhoFrota += 1;
+            return "Cadastro com sucesso!!! \n " + veiculo.toString();
+
+        } else {
+            return "Não é possível utilizar esse tipo de veículo!!!";
+
+        }
     }
 
     /**

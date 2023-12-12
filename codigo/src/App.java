@@ -1,16 +1,21 @@
 package src;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class App {
 
-    static Scanner sc = new Scanner(System.in);
-    public static String placa;
+    private static Scanner teclado;
+    private static Frota frota = new Frota();
+
 
     // #region criando comandos de limpeza e pausa
     static void pausa() {
         System.out.println("Enter para continuar.");
-        sc.nextLine();
+        teclado.nextLine();
     }
 
     public static void limparTela() {
@@ -22,93 +27,87 @@ public class App {
     // #region criação da abertura de App e menus para que o usuário escolha através
     // do Scanner(teclado)
 
-    public static void abrirApp() {
-        System.out.println("APP FROTAS");
-        System.out.println("\n ======================\n");
-
-        System.out.println("1 - Gerenciar veículos");
-        System.out.println("2 - Gerar relatórios");
-        System.out.println("0 - Sair");
-        System.out.println();
-        System.out.println("Insira uma opção: ");
-
-        int num = sc.nextInt();
-
-        switch (num) {
+    private static TipoVeiculo obterTipoVeiculo(int tipo) {
+        switch (tipo) {
             case 1:
-                menuVeiculo(num, null);
-                break;
+                return TipoVeiculo.CARRO;
             case 2:
-                menuRelatorio(num);
-                break;
-            case 0:
-                System.out.println("APP Finalizado");
-                break;
-            default:
-                System.out.println("Valor inválido");
-                break;
-        }
-    }
-
-    public static void menuVeiculo(int num, Rota rota) {
-        System.out.println("\n MENU DE VEÍCULOS");
-        System.out.println("\n ======================\n");
-
-        System.out.println("1 - Cadastrar veículo");
-        System.out.println("2 - Cadastrar rota");
-        System.out.println("3 - Abaster veículo");
-        System.out.println("4 - Localizar veículo");
-        System.out.println("5 - Percorrer rota");
-        System.out.println("0 - Voltar ao menu principal");
-
-        num = sc.nextInt();
-
-        switch (num) {
-            case 1:
-                // Veiculo veiculo1 = new Veiculo("ABC123", 0, tanque);
-                System.out.println("SWITCH 1");
-                break;
-            case 2:
-                //
-                System.out.println("SWITCH 2");
-                break;
+                return TipoVeiculo.VAN;
             case 3:
-                // veiculo.abastecer
-                System.out.println("SWITCH 3");
-                break;
+                return TipoVeiculo.FURGAO;
             case 4:
-                System.out.println("Insira a placa do veículo: ");
-                placa = sc.nextLine();
-                // localizarVeiculo(placa);
-                System.out.println("SWITCH 4");
-                break;
-            case 5:
-                System.out.println("Insira a placa do veículo que irá percorrer a rota: ");
-                placa = sc.nextLine();
-                // Veiculo.percorrerRota(rota);
-                System.out.println("SWITCH 5");
-                break;
-            case 0:
-                limparTela();
-                abrirApp();
-                break;
+                return TipoVeiculo.CAMINHAO;
+
             default:
-                System.out.println("Valor inválido");
-                break;
+                throw new IllegalArgumentException("Tipo de veículo inválido !!!");
         }
     }
 
-    public static void menuRelatorio(int num) {
-        System.out.println("\n MENU DE RELATÓRIOS");
-        System.out.println("\n ======================\n");
+    private static Combustivel obterTipoCombustivel(int tipo) {
 
-        System.out.println("1 - Relatório de despesas");
-        System.out.println("2 - Relatório de um veículo individual");
-        System.out.println("3 - Relatório da frota");
-        System.out.println("0 - Voltar ao menu principal");
-        num = sc.nextInt();
+        return Combustivel.tipoCombustivel(tipo);
+    }
 
-        switch (num) {
+    private static Veiculo criarVeiculo(String placa, int tipo, int tipoCombustivel) {
+        TipoVeiculo tipoVeiculo = obterTipoVeiculo(tipo);
+        Combustivel combustivel = obterTipoCombustivel(tipoCombustivel);
+
+        if (tipoVeiculo != null) {
+            Veiculo veiculo = new Veiculo(placa, tipoVeiculo, combustivel);
+            String mensagem = frota.addVeiculo(veiculo); // Captura a mensagem da frota
+            System.out.println(mensagem); // Imprime a mensagem
+            return veiculo;
+        }
+
+        return null;
+    }
+
+    public static void menuVeiculo() throws FileNotFoundException {
+
+        String nomeArq = "codigo\\Util\\menuVeiculo.txt";
+        int opcao = -1;
+        limparTela();
+        opcao = menu(nomeArq);
+
+        switch (opcao) {
+            case 1 -> {
+                limparTela();
+
+                System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
+                String placa = teclado.nextLine();
+                nomeArq = "codigo\\Util\\tipoVeiculo.txt";
+                opcao = menu(nomeArq);
+                int tipo = opcao;
+                nomeArq = "codigo\\Util\\tipoCombustivel.txt";
+                opcao = menu(nomeArq);
+                int combustivel = opcao;
+
+                criarVeiculo(placa, tipo, combustivel);
+                pausa();
+
+            }
+            case 2 -> {
+                // Veiculo adiciona rota???     Veiculo.addRota();
+            }
+            case 3 -> {
+                // Abastecer Veículo
+            }
+            case 4 ->{
+                // Localizar veículo
+            }
+            case 5 -> {
+                // Percorrer Rota
+            }
+        }
+    }
+
+    public static void menuRelatorio() throws FileNotFoundException {
+        String nomeArq = "codigo\\Util\\relatorioVeiculo.txt";
+        int opcao = -1;
+        limparTela();
+        opcao = menu(nomeArq);
+
+        switch (opcao) {
             case 1:
                 // fazer relatorio despesas
                 break;
@@ -119,60 +118,55 @@ public class App {
                 // relatorio toString frota
             case 0:
                 limparTela();
-                abrirApp();
+                // abrirApp();
             default:
                 System.out.println("Valor inválido");
                 break;
         }
     }
+
     // #endregion
-
-    public static void main(String[] args) throws Exception {
-
-        abrirApp();
-
-        // menuVeiculo(sc.nextInt());
-
-        // Crie um objeto de frota
-        // Frota frota = new Frota();
-
-        // Crie alguns veículos
-        // Tanque tanque1 = new Tanque(50.0, 60.0);
-        // Veiculo veiculo1 = new Veiculo("ABC123", 0, tanque1);
-
-        // Tanque tanque2 = new Tanque(50.0, 60.0);
-        // Veiculo veiculo2 = new Veiculo("BC123", 0, tanque2);
-
-        // // Registre algumas rotas
-        // Rota rota1 = new Rota(100.0, new Date());
-        // Rota rota2 = new Rota(110.0, new Date());
-        // // Registre algumas rotas
-        // Rota rota3 = new Rota(10.0, new Date());
-        // Rota rota4 = new Rota(110.0, new Date());
-
-        // // Adicioanr Rota no respectivo veiculo
-        // veiculo1.addRota(rota1);
-        // veiculo1.addRota(rota2);
-
-        // // Adicionando Rota no respectivo veiculo
-        // veiculo2.addRota(rota3);
-        // veiculo2.addRota(rota4);
-
-        // // Adicione os veículos à frota
-        // frota.addVeiculo(veiculo1);
-        // frota.addVeiculo(veiculo2);
-
-        // veiculo1.percorrerRota(rota1);
-
-        // System.out.println(frota.maiorKmMedia().getPlaca());
-
-        // System.out.println(frota.maiorKmTotal().getPlaca());
-
-        // Adicionar veiculo (param = placa);
-        // Criar rota (param= quilometragem e data)
-        // Adicionar rota em determinado veiculo (void ou boolea)
-        // localizar veiculo e imprimir seus respectivos dados (retorna String)
-
+    /**
+     * Método para montagem de menu. Lê as opções de um arquivo e as numera
+     * automaticamente a partir de 1.
+     * 
+     * @param nomeArquivo Nome do arquivo texto com as opções (uma por linha)
+     * @return Opção do usuário (int)
+     * @throws FileNotFoundException em caso de arquivo não encontrado.
+     */
+    public static int menu(String nomeArquivo) throws FileNotFoundException {
+        limparTela();
+        File arqMenu = new File(nomeArquivo);
+        Scanner leitor = new Scanner(arqMenu, "UTF-8");
+        System.out.println(leitor.nextLine());
+        System.out.println("==================================");
+        int contador = 1;
+        while (leitor.hasNextLine()) {
+            System.out.println(contador + " - " + leitor.nextLine());
+            contador++;
+        }
+        System.out.println("0 - Sair");
+        System.out.print("\nSua opção: ");
+        int opcao = Integer.parseInt(teclado.nextLine());
+        leitor.close();
+        return opcao;
     }
 
+    // #endregion
+    public static void main(String[] args) throws Exception {
+        teclado = new Scanner(System.in);
+        String nomeArq = "codigo\\Util\\appFrota.txt";
+        int opcao = -1;
+        while (opcao != 0) {
+            limparTela();
+            opcao = menu(nomeArq);
+            switch (opcao) {
+                case 1 -> menuVeiculo();
+                case 2 -> menuRelatorio();
+            }
+
+        }
+        System.out.println("VLW FLW OBG T+.");
+        teclado.close();
+    }
 }

@@ -5,13 +5,15 @@ import java.time.LocalDate;
 public class Veiculo implements IRepara{
     
     private static int MAX_ROTAS = 30;
-    private String placa;
-    private int quantRotas = 0;
     private ArrayList<Rota> rotas = new ArrayList<Rota>();
     private double kmPeriodico = 0;
     private double kmPecas = 0;
+    private int quantRotas = 0;
+
+    private String placa;
     public Tanque tanque;
-    public TipoVeiuculo veiculo;
+    public TipoVeiculo tipoVeiculo;
+    public Combustivel tipoCombustivel;
 
 
 //#region Construtores 
@@ -20,14 +22,14 @@ public class Veiculo implements IRepara{
      * 
      * @param placa             A placa do veículo.
      * @param quantRotas        A quantidade de rotas realizadas pelo veículo.
-     * @param tanque            O tanque do veículo.
+     * @param tipoVeiculo       (ex: carro, caminhão, entre outros) Define as capacidades de tanque, manutenção períodia, manutenção de peças.
      * @param totalReabastecido O total de litros reabastecidos no veículo.
      */
-    public Veiculo(String placa, int quantRotas, Tanque tanque, int tipoVeículo, int tipoCombustivel) {
+    public Veiculo(String placa, TipoVeiculo tipoVeiculo, Combustivel tipoCombustivel) {
         this.placa = placa;
-        this.quantRotas = quantRotas;
-        this.veiculo = veiculo.determinarVeiculo(tipoVeículo);
-        this.tanque = new Tanque(0d, veiculo.getCapacidadeTanque(), tipoCombustivel);
+        this.quantRotas = 0;
+        this.tipoVeiculo =tipoVeiculo;
+        this.tipoCombustivel = tipoCombustivel;
     }
 //#endregion
 
@@ -124,7 +126,7 @@ public class Veiculo implements IRepara{
     }
 
     public boolean verificarEstado(){
-        if (kmTotal() >= kmPeriodico*veiculo.getManutencaoPeriodica()){
+        if (kmTotal() >= kmPeriodico * veiculo.getManutencaoPeriodica()){
             return false;
         }
         else
@@ -145,5 +147,16 @@ public class Veiculo implements IRepara{
         return quantRotas;
     }
 //#endregion
+
+    @Override
+    public boolean verificarEstado(double kmTotal) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'verificarEstado'");
+    }
+
+    @Override
+    public String toString() {
+        return "Veículo-->  Placa: " + placa + ", Tipo: " + tipoVeiculo + ", Combustível: " + tipoCombustivel;
+    }
 
 }

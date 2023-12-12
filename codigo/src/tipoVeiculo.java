@@ -2,19 +2,22 @@ package src;
 
 public enum TipoVeiculo {
 
-    CARRO(50d, 10000d, 10000d),
-    VAN(60d, 10000d, 12000d),
-    FURGAO(80d, 10000d, 12000d),
-    CAMINHAO(250d, 20000d, 20000d);
+    CARRO(50d, 10000d, 10000d, "CARRO"),
+    VAN(60d, 10000d, 12000d,"VAN"),
+    FURGAO(80d, 10000d, 12000d,"FURGAO"),
+    CAMINHAO(250d, 20000d, 20000d, "CAMINHAO");
 
     private Double capacidadeTanque;
     private Double manutencaoPeriodica;
     private Double manutencaoPecas;
+    private String nome;
+    
 
-    private TipoVeiculo(Double capacidadeTanque, Double manutencaoPeriodica, Double manutencaoPecas) {
+    private TipoVeiculo(Double capacidadeTanque, Double manutencaoPeriodica, Double manutencaoPecas, String nome) {
         this.capacidadeTanque = capacidadeTanque;
         this.manutencaoPeriodica = manutencaoPeriodica;
         this.manutencaoPecas = manutencaoPecas;
+        this.nome = nome;
     }
 
     public Double getCapacidadeTanque() {
@@ -28,8 +31,11 @@ public enum TipoVeiculo {
     public Double getManutencaoPecas() {
         return manutencaoPecas;
     }
+    public String getNome(){
+        return nome;
+    }
 
-    static tipoVeiculo determinarVeiculo(int valor) {
+    static TipoVeiculo determinarVeiculo(int valor){
 
         switch (valor) {
             case 1:
