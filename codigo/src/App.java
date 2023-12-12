@@ -103,7 +103,7 @@ public class App {
                 System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
                 String placa = teclado.nextLine();
                 try{
-                    frota.localizarVeiculo(placa).percorrerRota(null);
+                    System.out.println(frota.localizarVeiculo(placa).percorrerRota(null));
                     System.out.println("Rota percorrida");
                     pausa();
                 }

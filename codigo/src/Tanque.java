@@ -39,8 +39,15 @@ public class Tanque implements IAbastece{
         return capacidadeAtual;
     }
 
-    public void queimarCombustivel(double km){
+    public boolean queimarCombustivel(double km){
+        if(capacidadeAtual*combustivel.getConsumoMedio()>=km){
         capacidadeAtual -= km/combustivel.getConsumoMedio();
+        return true;
+    }
+    else{
+        return false;
+    }
+
     }
 
     /**

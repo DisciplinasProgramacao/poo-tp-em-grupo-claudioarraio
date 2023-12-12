@@ -98,11 +98,15 @@ public class Veiculo implements IRepara {
      * 
      * @param rota A rota a ser percorrida.
      */
-    public void percorrerRota(Rota rota) {
-
-        tanque.queimarCombustivel(rota.getQuilometragem());
+    public String percorrerRota(Rota rota) {
+        if(tanque.queimarCombustivel(rota.getQuilometragem())){
         rota.setData(new Date());
         verificarEstado();
+        return "Rota percorrida";
+        }
+        else{
+            return "Sem Combustivel suficiente para a rota";
+        }
     }
 
     public String relatorioRotas() {
