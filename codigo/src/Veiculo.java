@@ -46,7 +46,7 @@ public class Veiculo implements IRepara {
      *         não é suficiente.
      */
     public boolean addRota(Rota rota) {
-        if (tanque.autonomiaAtual() >= rota.getQuilometragem()) {
+        if (rotas.size() <= MAX_ROTAS) {
             rotas.add(rota);
             return true;
         }

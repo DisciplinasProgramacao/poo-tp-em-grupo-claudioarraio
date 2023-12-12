@@ -29,7 +29,7 @@ public class App {
 
     public static void menuVeiculo() throws FileNotFoundException {
 
-        String nomeArq = "/Users/carlosdaniel/Desktop/GALERADECAUBOI/poo-tp-em-grupo-claudioarraio/bin/Util/menuVeiculo.txt";
+        String nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\menuVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
@@ -40,10 +40,11 @@ public class App {
 
                 System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
                 String placa = teclado.nextLine();
-                nomeArq = "/Users/carlosdaniel/Desktop/GALERADECAUBOI/poo-tp-em-grupo-claudioarraio/bin/Util/tipoCombustivel.txt";
+                
+                nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\tipoVeiculo.txt";
                 opcao = menu(nomeArq);
                 int tipo = opcao;
-                nomeArq = "/Users/carlosdaniel/Desktop/GALERADECAUBOI/poo-tp-em-grupo-claudioarraio/bin/Util/tipoVeiculo.txt";
+                nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\tipoCombustivel.txt";
                 opcao = menu(nomeArq);
                 int combustivel = opcao;
                 Veiculo veiculo = new Veiculo(placa, tipo, combustivel);
@@ -83,6 +84,8 @@ public class App {
                 // Abastecer Veículo
                 System.out.println("🚛🛻  DIGITE A PLACA DO VEICULO 🚚🚗");
                 String placa = teclado.nextLine();
+                frota.localizarVeiculo(placa);
+                // lançar ex
                 System.out.println("Informe a quantidade");
                 Double litrosAbast = teclado.nextDouble();
                 frota.localizarVeiculo(placa).tanque.abastecer(litrosAbast);
@@ -97,15 +100,22 @@ public class App {
 
             }
             case 5 -> {
-                // Percorrer Rota
-                System.out.println("  🚛🛻  TESTE 5 🚚🚗");
-                pausa();
+                System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
+                String placa = teclado.nextLine();
+                try{
+                    frota.localizarVeiculo(placa).percorrerRota(null);
+                    System.out.println("Rota percorrida");
+                    pausa();
+                }
+                catch(Exception IlegallArgumentException){
+                    System.out.println("Erro");
+                }
             }
         }
     }
 
     public static void menuRelatorio() throws FileNotFoundException {
-        String nomeArq = "/Users/carlosdaniel/Desktop/GALERADECAUBOI/poo-tp-em-grupo-claudioarraio/bin/Util/relatorioVeiculo.txt";
+        String nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\relatorioVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
@@ -113,8 +123,7 @@ public class App {
         switch (opcao) {
             case 1:
                 System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
-                Veiculo teste=frota.localizarVeiculo(teclado.nextLine());
-                System.out.println(teste.relatorioRotas());
+                System.out.println(frota.localizarVeiculo(teclado.nextLine()).relatorioRotas());
                 pausa();
                 break;
             case 2: // Relatório do veículo individual
@@ -164,7 +173,7 @@ public class App {
     // #endregion
     public static void main(String[] args) throws Exception {
         teclado = new Scanner(System.in);
-        String nomeArq = "/Users/carlosdaniel/Desktop/GALERADECAUBOI/poo-tp-em-grupo-claudioarraio/bin/Util/appFrota.txt";
+        String nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\appFrota.txt";
         int opcao = 1;
         while (opcao != 0) {
             limparTela();
