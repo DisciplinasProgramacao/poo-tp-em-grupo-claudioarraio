@@ -84,6 +84,7 @@ public class App {
                     }
                 } catch (Exception e) {
                     System.out.println("Ocorreu um erro ao adicionar a rota: " + e.getMessage());
+                    teclado.nextLine();
                     pausa();
                 }
 
