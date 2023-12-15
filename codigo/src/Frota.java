@@ -75,6 +75,7 @@ public class Frota {
         if(veiculos.get(placa)==null){
             throw new RuntimeException("aaaaaaaaa");
         }
+        else
         return veiculos.get(placa);
     }
 

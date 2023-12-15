@@ -1,5 +1,0 @@
- public Rota(double quilometragem, Date data) {
-        this.quilometragem = quilometragem;
-        this.data = data;
-    }
-100;
