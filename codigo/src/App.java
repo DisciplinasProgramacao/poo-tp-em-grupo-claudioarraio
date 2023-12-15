@@ -32,59 +32,68 @@ public class App {
 
     public static void menuVeiculo() throws IOException {
 
-        String nomeArq = "C:\\Users\\Victor\\Desktop\\GALERADEPEAO\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\menuVeiculo.txt";
+        String nomeArq = "C:\\Users\\Corvo\\Desktop\\as\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\menuVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
         String placa;
         switch (opcao) {
             case 1:
-                limparTela();
-                System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
-                placa = teclado.nextLine();
-                if(frota.veiculoExiste(placa)==true){
-                    throw new IllegalArgumentException("Erro, veiculo já existe");
+                try {
+                    limparTela();
+                    System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
+                    placa = teclado.nextLine();
+
+                    if (frota.veiculoExiste(placa)) {
+                        System.out.println("Veículo já existe na frota.");
+                        pausa();
+                    } else {
+                        System.out.println(Combustivel.imprimirValoresComb());
+                        int tipo = teclado.nextInt();
+                        Combustivel comb = Combustivel.values()[tipo - 1];
+                        System.out.println(TipoVeiculo.imprimirValoresVeic());
+                        tipo = teclado.nextInt();
+                        TipoVeiculo veic = TipoVeiculo.values()[tipo - 1];
+                        Tanque tanque = new Tanque(0d, veic.getCapacidadeTanque(), comb);
+                        Veiculo veiculo = new Veiculo(placa, veic, tanque);
+                        frota.addVeiculo(veiculo);
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                } finally {
+                    pausa();
                 }
-                System.out.println(Combustivel.imprimirValoresComb());
-                int tipo = teclado.nextInt();
-                Combustivel comb = Combustivel.values()[tipo-1];
-                System.out.println(TipoVeiculo.imprimirValoresVeic());
-                tipo = teclado.nextInt();
-                TipoVeiculo veic = TipoVeiculo.values()[tipo-1];
-                Tanque tanque=new Tanque(0d, veic.getCapacidadeTanque(), comb);
-                Veiculo veiculo = new Veiculo(placa, veic, tanque);
-                frota.addVeiculo(veiculo);
+                break;
 
-                pausa();
-
-             break;
-            case 2:  // CADASTRAR ROTA
+            case 2: // CADASTRAR ROTA
 
                 System.out.println("🚛🛻 DIGITE A PLACA DO VEICULO 🚚🚗");
                 placa = teclado.nextLine();
-                if(frota.veiculoExiste(placa)==false){
-                    throw new IllegalArgumentException("Erro, veiculo inexistente");
-                }
-                System.out.println("🚛🛻 INFORME A QUILOMETRAGEM 🚚🚗");
-                double km = teclado.nextDouble();
                 try {
-                     Rota rota = new Rota(km);
-                     frota.localizarVeiculo(placa).addRota(rota);
+                    if (!frota.veiculoExiste(placa)) {
+                        throw new IllegalArgumentException("Erro, veiculo inexistente");
+
+                    } else {
+                        System.out.println("🚛🛻 INFORME A QUILOMETRAGEM 🚚🚗");
+                        double km = teclado.nextDouble();
+                        frota.addRota(placa, km);
+                        System.out.println("Rota adicionada");
+                        teclado.nextLine();
+                        pausa();
+
+                    }
                 } catch (Exception e) {
-                    System.out.println("dojsfsd");
+                    System.out.println("Ocorreu um erro ao adicionar a rota: " + e.getMessage());
+                    pausa();
                 }
-                
-             break;
-             default :
-             System.out.println("Favor digitar apenas valores validos!!!!!!!"); pausa(); break;
-             
-             
-             
+
+                break;
         }
+
     }
 
     public static void menuRelatorio() throws FileNotFoundException {
-        String nomeArq = "C:\\Users\\Victor\\Desktop\\GALERADEPEAO\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\relatorioVeiculo.txt";
+        String nomeArq = "C:\\Users\\Corvo\\Desktop\\as\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\relatorioVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
@@ -136,18 +145,17 @@ public class App {
         }
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
-        int opcao=-1;
+        int opcao = -1;
         try {
             opcao = Integer.parseInt(teclado.nextLine());
         } catch (IllegalArgumentException e) {
             opcao = -1;
-        }
-        finally{
+        } finally {
 
-//0 1 2 3 4
+            // 0 1 2 3 4
 
-            if(opcao>contador || opcao<0)
-            opcao=-1;
+            if (opcao > contador || opcao < 0)
+                opcao = -1;
         }
         return opcao;
     }
@@ -155,7 +163,7 @@ public class App {
     // #endregion
     public static void main(String[] args) throws Exception {
         teclado = new Scanner(System.in);
-        String nomeArq = "C:\\Users\\Victor\\Desktop\\GALERADEPEAO\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\appFrota.txt";
+        String nomeArq = "C:\\Users\\Corvo\\Desktop\\as\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\appFrota.txt";
         int opcao = 1;
         while (opcao != 0) {
             limparTela();
@@ -179,4 +187,8 @@ public class App {
         System.out.println("VLW FLW OBG T+.");
         teclado.close();
     }
+
+
+
+
 }

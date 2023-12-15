@@ -45,7 +45,8 @@ public class Veiculo implements IRepara {
      * @return Verdadeiro se a rota foi adicionada com sucesso, falso se a autonomia
      *         não é suficiente.
      */
-    public String addRota(Rota rota) {
+    public String addRota(Double km) {
+        Rota rota = new Rota(km);
         StringBuilder aux = new StringBuilder();
         if (rotas.size() <= MAX_ROTAS) {
             if(tanque.autonomiaAtual()<rota.getQuilometragem()){

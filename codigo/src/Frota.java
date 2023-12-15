@@ -78,6 +78,14 @@ public class Frota {
         return veiculos.get(placa);
     }
 
+
+    public String addRota(String placa, Double km){
+
+        return localizarVeiculo(placa).addRota(km);
+
+
+    }
+
     public boolean veiculoExiste(String placa)throws IOException {
         boolean existe = false;
         if(veiculos.get(placa)!=null){
@@ -86,7 +94,7 @@ public class Frota {
         return existe;
     }
 
-    public void abastecer(String placa, Double litros){
+    public void abastecer(String placa){
         localizarVeiculo(placa).abastecer();
     }
 
