@@ -1,11 +1,16 @@
 package src;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Frota {
 
-    private int tamanhoFrota = 0;
-    private static ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+    static Map<String, Veiculo> veiculos = new HashMap<String, Veiculo>();
 
     // #region Relatórios
     /**
@@ -16,54 +21,35 @@ public class Frota {
      */
     @Override
     public String toString() { // Método de relatório
-        String relatorio = ""; // Inicializa a string de relatório
-        for (Veiculo veiculo : veiculos) {
-            relatorio += "\n--------------------------\n" +
-                    "Placa: " + veiculo.getPlaca() + "\n Litros Abastecidos: " + veiculo.tanque.getTotalReabastecido() +
-                    "\n Km Total: " + veiculo.kmTotal() + "\n Quantidade de Rotas: " + veiculo.quantRotas() +
-                    "\n KM no Mês: " + veiculo.kmNoMes();
-        }
-        return relatorio;
+        return veiculos.values().stream()
+                .map(Veiculo::toString)
+                .collect(Collectors.joining("------------------", "", ""));
     }
 
     // #endregion
 
     // #region Métodos de comparação
+
     /**
      * Método para encontrar o veículo com maior quilometragem total.
      */
     public Veiculo maiorKmTotal() {
 
-               Veiculo maiorKm=veiculos.get(0);
+        return veiculos.values().stream()
+                .max(Comparator.comparing(veiculo -> kmTotal()))
+                .orElse(null);
 
-//REVISAR
-        for (Veiculo veiculo : veiculos) {
-            if (veiculo.kmTotal() > maiorKm.kmTotal()) {
-                maiorKm = veiculo;
-            }
-        }
-        return maiorKm;
     }
-
     /**
      * Método para encontrar o veículo com a maior quilometragem média por rota
      */
     public Veiculo maiorKmMedia() {
 
-//REVISAR
-
-        Double maiorMedia = 0.0;
-        Double temp = 0.0;
-        Veiculo veiculo1=veiculos.get(0);
-        for (Veiculo veiculo : veiculos) {
-            temp = veiculo.kmTotal() / veiculo.quantRotas();
-            if (temp > maiorMedia) {
-                maiorMedia = temp;
-                veiculo1 = veiculo;
-            }
-        }
-        return veiculo1;
+        return veiculos.values().stream()
+                .max(Comparator.comparing(veiculo -> kmTotal() / veiculo.quantRotas()))
+                .orElse(null);
     }
+    
     // #endregion
 
     // #region Manipulação de dados e pesquisa
@@ -73,17 +59,8 @@ public class Frota {
      * 
      * @param veiculo
      */
-    public String addVeiculo(Veiculo veiculo) {
-
-        if (veiculo != null) {
-            veiculos.add(veiculo);
-            tamanhoFrota += 1;
-            return "Cadastro com sucesso!!! \n " + veiculo.toString();
-
-        } else {
-            return "Não é possível utilizar esse tipo de veículo!!!";
-
-        }
+    public void addVeiculo(Veiculo veiculo) {
+        veiculos.put(veiculo.getPlaca(), veiculo);
     }
 
     /**
@@ -92,18 +69,26 @@ public class Frota {
      * @param placa
      * @return veículo
      */
-    public Veiculo localizarVeiculo(String placa) {
 
-        for (Veiculo veiculo : veiculos) {
-            if (veiculo.getPlaca().equals(placa)) {
-                return veiculo; // A placa foi encontrada
-             
-            }
+     public Veiculo localizarVeiculo(String placa) {
+        // mudar esse metodo pra stream
+        if(veiculos.get(placa)==null){
+            throw new RuntimeException("aaaaaaaaa");
         }
-        System.out.println("Veículo não encontrado"); // TEMPORÁRIO: Mensagem de erro EXCEÇÃO
-        return null;
+        return veiculos.get(placa);
     }
 
+    public boolean veiculoExiste(String placa)throws IOException {
+        boolean existe = false;
+        if(veiculos.get(placa)!=null){
+            existe = true;
+        }
+        return existe;
+    }
+
+    public void abastecer(String placa, Double litros){
+        localizarVeiculo(placa).abastecer();
+    }
 
     // #endregion
 
@@ -112,13 +97,9 @@ public class Frota {
      * Método para calcular a quilometragem total de todos os veículos na frota.
      */
     public Double kmTotal() {
-        Double kmTotal = 0.0;
-
-        for (Veiculo veiculo : veiculos) {
-            kmTotal += veiculo.kmTotal();
-        }
-
-        return kmTotal;
+        return veiculos.values().stream()
+                .mapToDouble(veiculo -> veiculo.kmTotal()) // Substitua isso pelo método real
+                .sum();
     }
 
     // #endregion

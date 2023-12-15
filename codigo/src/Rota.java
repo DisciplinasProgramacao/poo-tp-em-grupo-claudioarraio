@@ -22,9 +22,9 @@ public class Rota {
      * @param data          A data em que a rota foi realizada.
      */
     public Rota(double quilometragem) {
-        this.ID=proximoID++;
+        this.ID=proximoID;
         this.quilometragem = quilometragem;
-        this.data = null;
+        proximoID++;
     }
     // #endregion
 
@@ -62,13 +62,16 @@ public class Rota {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-sb.append("ID: "+ID);
-        sb.append("quilometragen:" + quilometragem);
-        if (data != null)
-            sb.append("\nData de entrega" + data);
+        
+sb.append("\nID: "+ID);
+        sb.append("|  quilometragen:" + quilometragem);
+        if (data == null)
+        sb.append("\n Ainda não entregue");
+            
         else{
-            sb.append("\nAinda não entregue");
+            sb.append("\nData de entrega" + data);
         }
+        sb.append("\n---------");
 
         return sb.toString();
     }

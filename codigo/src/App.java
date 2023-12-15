@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
+
+import javax.management.RuntimeErrorException;
+
 import java.util.Date;
 import java.security.InvalidAlgorithmParameterException;
 
@@ -27,87 +30,61 @@ public class App {
     // #region criação da abertura de App e menus para que o usuário escolha através
     // do Scanner(teclado)
 
-    public static void menuVeiculo() throws FileNotFoundException {
+    public static void menuVeiculo() throws IOException {
 
-        String nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\menuVeiculo.txt";
+        String nomeArq = "C:\\Users\\Victor\\Desktop\\GALERADEPEAO\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\menuVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
-
+        String placa;
         switch (opcao) {
-            case 1 -> {
+            case 1:
                 limparTela();
-
                 System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
-                String placa = teclado.nextLine();
+                placa = teclado.nextLine();
+                if(frota.veiculoExiste(placa)==true){
+                    throw new IllegalArgumentException("Erro, veiculo já existe");
+                }
                 System.out.println(Combustivel.imprimirValoresComb());
                 int tipo = teclado.nextInt();
+                Combustivel comb = Combustivel.values()[tipo-1];
                 System.out.println(TipoVeiculo.imprimirValoresVeic());
                 tipo = teclado.nextInt();
-                int combustivel = opcao;
-                Veiculo veiculo = new Veiculo(placa, tipo, combustivel);
+                TipoVeiculo veic = TipoVeiculo.values()[tipo-1];
+                Tanque tanque=new Tanque(0d, veic.getCapacidadeTanque(), comb);
+                Veiculo veiculo = new Veiculo(placa, veic, tanque);
                 frota.addVeiculo(veiculo);
 
                 pausa();
 
-            }
-            case 2 -> { // CADASTRAR ROTA
+             break;
+            case 2:  // CADASTRAR ROTA
 
-                // Crie alguns veículos
                 System.out.println("🚛🛻 DIGITE A PLACA DO VEICULO 🚚🚗");
-                String placa = teclado.nextLine();
-                //frota.localizarVeiculo(teclado.nextLine());
-
-                // ex se nao achar
-               
+                placa = teclado.nextLine();
+                if(frota.veiculoExiste(placa)==false){
+                    throw new IllegalArgumentException("Erro, veiculo inexistente");
+                }
                 System.out.println("🚛🛻 INFORME A QUILOMETRAGEM 🚚🚗");
-                Rota rota = new Rota(teclado.nextDouble());
-
-                frota.localizarVeiculo(placa).addRota(rota);
-
-            }
-            case 3 -> {
-                // Abastecer Veículo
-                System.out.println("🚛🛻 DIGITE A PLACA DO VEICULO 🚚🚗");
-                String placa = teclado.nextLine();
-                frota.localizarVeiculo(placa);
-                // lançar ex
-                System.out.println("Informe a quantidade");
-                Double litrosAbast = teclado.nextDouble();
-                frota.localizarVeiculo(placa).tanque.abastecer(litrosAbast);
-                pausa();
-            }
-            case 4 -> { 
+                double km = teclado.nextDouble();
+                try {
+                     Rota rota = new Rota(km);
+                     frota.localizarVeiculo(placa).addRota(rota);
+                } catch (Exception e) {
+                    System.out.println("dojsfsd");
+                }
+                
+             break;
+             default :
+             System.out.println("Favor digitar apenas valores validos!!!!!!!"); pausa(); break;
              
-                System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
-                String placa = teclado.nextLine();
-                try{
-                    System.out.println(frota.localizarVeiculo(placa));
-                    System.out.println("Digite o ID da rota: ");
-                    
-                    System.out.println(frota.localizarVeiculo(placa).percorrerRota(teclado.nextInt()));
-
-                    System.out.println("Rota percorrida");
-                    pausa();
-                }
-                catch(Exception IlegallArgumentException){
-                    System.out.println("Erro");
-                }
-
-            }
-
-            //default {
-               // catch (IllegalArgumentException e) {
-                   // opcao = -1;
-                 //   System.out.println("Favor digitar apenas números.");
-               //     pausa();
-             //   }
-           // }
+             
+             
         }
     }
 
     public static void menuRelatorio() throws FileNotFoundException {
-        String nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\relatorioVeiculo.txt";
+        String nomeArq = "C:\\Users\\Victor\\Desktop\\GALERADEPEAO\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\relatorioVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
@@ -124,16 +101,18 @@ public class App {
                 pausa();
                 break;
             case 3: // Relatório da Frota
-                System.out.println(frota);
+                System.out.println(frota.toString());
                 pausa();
+                break;
+            case 0:
+                break;
+
             default:
-                System.out.println("Valor inválido"); 
+                System.out.println("Favor digitar apenas valores validos");
+                pausa();
                 break;
         }
     }
-
-
-
 
     // #endregion
     /**
@@ -157,29 +136,43 @@ public class App {
         }
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
-        int opcao;
-       // try {
-            opcao = Integer.parseInt(teclado.nextLine());    
-        //} catch (NumberFormatException e) {
-           // opcao = -1;
-            //System.out.println("Favor digitar apenas valores validos.");
-            //pausa();
-        //}
-        leitor.close();
+        int opcao=-1;
+        try {
+            opcao = Integer.parseInt(teclado.nextLine());
+        } catch (IllegalArgumentException e) {
+            opcao = -1;
+        }
+        finally{
+
+//0 1 2 3 4
+
+            if(opcao>contador || opcao<0)
+            opcao=-1;
+        }
         return opcao;
     }
 
     // #endregion
     public static void main(String[] args) throws Exception {
         teclado = new Scanner(System.in);
-        String nomeArq = "C:\\Users\\Victor\\Desktop\\Faculdade\\POO\\TI\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\appFrota.txt";
+        String nomeArq = "C:\\Users\\Victor\\Desktop\\GALERADEPEAO\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\appFrota.txt";
         int opcao = 1;
         while (opcao != 0) {
             limparTela();
             opcao = menu(nomeArq);
             switch (opcao) {
-                case 1 -> menuVeiculo();
-                case 2 -> menuRelatorio();
+                case 1:
+                    menuVeiculo();
+                    break;
+                case 2:
+                    menuRelatorio();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Favor digitar apenas valores validos");
+                    pausa();
+                    break;
             }
 
         }
@@ -187,13 +180,3 @@ public class App {
         teclado.close();
     }
 }
-
-
-//OQUE FAZER?
-//
-//1-Exceções  (alguns try catch)
-//2-Formatar direitinho no terminal  (Os dados dos enumeradores, é pra ser chamado os enumeradores, só que esta usando um arquivo, desnecessario)
-//3-PercorrerRota
-//4-Manutenção
-//
-

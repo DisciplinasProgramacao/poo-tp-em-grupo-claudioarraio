@@ -8,7 +8,7 @@ public class Veiculo implements IRepara {
     private static int MAX_ROTAS = 30;
     private ArrayList<Rota> rotas;
     private String placa;
-    public Tanque tanque;
+    private Tanque tanque;
     int manutencaopecas = 0;
     int manutencaoperiodica = 0;
     public TipoVeiculo tipoVeiculo;
@@ -21,11 +21,11 @@ public class Veiculo implements IRepara {
      * @param numTipoVeiculo
      * @param TipoCombustivel
      */
-    public Veiculo(String placa, int numTipoVeiculo, int tipoCombustivel) {
-        this.rotas = new ArrayList<Rota>();
+    public Veiculo(String placa, TipoVeiculo veiculo, Tanque tanque) {
+        this.rotas = new ArrayList<Rota>(MAX_ROTAS);
         this.placa = placa;
-        this.tipoVeiculo = TipoVeiculo.determinarVeiculo(numTipoVeiculo);
-        this.tanque = new Tanque(0d, tipoVeiculo.getCapacidadeTanque(), Combustivel.tipoCombustivel(tipoCombustivel));
+        this.tipoVeiculo = veiculo;
+        this.tanque = tanque;;
     }
 
     public int quantRotas() {
@@ -45,12 +45,24 @@ public class Veiculo implements IRepara {
      * @return Verdadeiro se a rota foi adicionada com sucesso, falso se a autonomia
      *         não é suficiente.
      */
-    public boolean addRota(Rota rota) {
+    public String addRota(Rota rota) {
+        StringBuilder aux = new StringBuilder();
         if (rotas.size() <= MAX_ROTAS) {
+            if(tanque.autonomiaAtual()<rota.getQuilometragem()){
+                abastecer();
+            }
             rotas.add(rota);
-            return true;
+            rota.setData(new Date());
+            tanque.queimarCombustivel(rota.getQuilometragem());
+            verificarEstado();
+            aux.append("Sua rota foi adicionada com sucesso!");
         }
-        return false;
+        aux.append("Sua rota nao pode ser adicionada!");
+        return aux.toString();
+    }
+
+    public void abastecer(){
+        this.tanque.abastecer();
     }
     // #endregion
 
@@ -98,20 +110,6 @@ public class Veiculo implements IRepara {
      * 
      * @param rota A rota a ser percorrida.
      */
-    public String percorrerRota(int ID) {
-        for (Rota rota : rotas) {
-            if (rota.getID() == ID) {
-            rota.setData(new Date());
-            verificarEstado();
-            return "Rota percorrida";
-        }
-            else{
-                return "Sem Combustivel suficiente para a rota";
-        }
-            }
-            return "Veiculo nao encontrado";
-    }
-
     public Rota localizarRota(int ID) {
         for (Rota rota : rotas) {
             if (rota.getID() == ID) {
@@ -168,9 +166,13 @@ public class Veiculo implements IRepara {
 
     @Override
     public String toString() {
-        return "Veículo-->  Placa: " + placa + ", Tipo: " + tipoVeiculo + "kmTotal : " + kmTotal()
-                + ", Trocou de pecas" + manutencaopecas + ", Manutencao Periodica:" + manutencaoperiodica
-                + tanque.toString() + "\n" + rotas.toString(); 
+        return " ==================================\n\nPlaca do Veículo: " + placa + ", Tipo: " + tipoVeiculo + " \n" +
+                "KM Total : " + kmTotal()
+                + "\nTrocou de pecas: " + manutencaopecas +" vezes" + ", Manutencao Periodica: " + manutencaoperiodica
+                + tanque.toString() + "\n" + "\nROTAS: \n"+relatorioRotas(); 
     }
+
+
+
 
 }

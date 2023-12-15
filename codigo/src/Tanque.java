@@ -1,6 +1,6 @@
 package src;
 
-public class Tanque implements IAbastece{
+public class Tanque {
     private Double capacidadeAtual;
     private Double capacidadeMax;
     private Double totalReabastecido;
@@ -28,15 +28,11 @@ public class Tanque implements IAbastece{
      * @param litros A quantidade de litros a ser abastecida.
      * @return A capacidade atual do tanque após o abastecimento.
      */
-    @Override
-    public Double abastecer(Double litros) {
-        if((this.capacidadeAtual + litros) > capacidadeMax){
-            //exceção
-            return 0d;
-        }
-        capacidadeAtual += litros;
-        totalReabastecido+=litros;
-        return capacidadeAtual;
+
+    public void abastecer() {
+        double abs = capacidadeMax-capacidadeAtual;
+        this.capacidadeAtual = capacidadeMax;
+        this.totalReabastecido+=abs;
     }
 
     public boolean queimarCombustivel(double km){
@@ -97,7 +93,7 @@ public class Tanque implements IAbastece{
     @Override
     public String toString() {
 
-        return ", Combustivel: "+combustivel.toString()+", totalReabastecido: "+totalReabastecido+", Total gasto em combustivel: "+valorGastoCombustivel();
+        return ", \n Combustivel: "+combustivel.toString()+", Total Reabastecido: "+totalReabastecido+", Total gasto em combustivel: R$"+valorGastoCombustivel();
     }
 
 }
