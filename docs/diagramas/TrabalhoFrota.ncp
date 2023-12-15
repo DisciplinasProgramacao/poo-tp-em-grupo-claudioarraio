@@ -1,0 +1,218 @@
+<Project>
+  <Name>TrabalhoFrota</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>sem Título</Name>
+    <Language>Java</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Frota</Name>
+        <Access>Public</Access>
+        <Location left="183" top="539" />
+        <Size width="234" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private map&lt;Veiculo&gt; veiculos</Member>
+        <Member type="Method">public Veiculo maiorKmTotal()</Member>
+        <Member type="Method">public Veiculo maiorKmMedia()</Member>
+        <Member type="Method">public void addVeiculos(Veiculo veiculo)</Member>
+        <Member type="Method">public Veiculo localizarVeiculo(String placa)</Member>
+        <Member type="Method">public double kmTotal()</Member>
+        <Member type="Method">public void abastecer()</Member>
+        <Member type="Method">public boolean veiculoExiste()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Tanque</Name>
+        <Access>Public</Access>
+        <Location left="888" top="539" />
+        <Size width="200" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Combustivel combustivel</Member>
+        <Member type="Field">private double capacidadeAtual</Member>
+        <Member type="Field">private double capacidadeMax</Member>
+        <Member type="Field">private double totalReabastecido</Member>
+        <Member type="Method">public void abastecer()</Member>
+        <Member type="Method">public double autonomiaMax()</Member>
+        <Member type="Method">public boolean queimarCombustivel()</Member>
+        <Member type="Method">public double autonomiaAtual()</Member>
+        <Member type="Method">public double valorGastoCombustivel()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Veiculo</Name>
+        <Access>Public</Access>
+        <Location left="552" top="505" />
+        <Size width="262" height="417" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private TipoVeiculo tipoVeiculo</Member>
+        <Member type="Field">private static int MAX_ROTAS = 30</Member>
+        <Member type="Field">private IRepara repara</Member>
+        <Member type="Field">private String placa</Member>
+        <Member type="Field">private arrayList rota</Member>
+        <Member type="Field">private Tanque tanque</Member>
+        <Member type="Field">private int manutencaoPecas = 0</Member>
+        <Member type="Field">private int manutencaoPeriodica = 0</Member>
+        <Member type="Field">private double valorManutencaoPecas</Member>
+        <Member type="Field">private double valorManutencaoPeriodica</Member>
+        <Member type="Method">public String addRota(Rota rota)</Member>
+        <Member type="Method">public double kmNoMes()</Member>
+        <Member type="Method">public double kmTotal()</Member>
+        <Member type="Method">public boolean verificarEstado(double KmTotal)</Member>
+        <Member type="Method">public void abastecer()</Member>
+        <Member type="Method">public void manutencaoPeriodica()</Member>
+        <Member type="Method">public void manutencaoPeca()</Member>
+        <Member type="Method">public int quantRotas()</Member>
+        <Member type="Method">public rota localizarRota()</Member>
+        <Member type="Method">public String relatorioRotas()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Rota</Name>
+        <Access>Public</Access>
+        <Location left="1013" top="268" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private double quilometragem</Member>
+        <Member type="Field">private Data data</Member>
+        <Member type="Field">private static int id</Member>
+        <Member type="Field">private static int proximoId</Member>
+        <Member type="Method">public String relatorio()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>TipoVeiculos</Name>
+        <Access>Public</Access>
+        <Location left="603" top="939" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>Carro</Value>
+        <Value>Van</Value>
+        <Value>Furgao</Value>
+        <Value>Caminhao</Value>
+      </Entity>
+      <Entity type="Enum">
+        <Name>Combustivel</Name>
+        <Access>Public</Access>
+        <Location left="1152" top="559" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>Alcool</Value>
+        <Value>Gasolina</Value>
+        <Value>Diesel</Value>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IRepara</Name>
+        <Access>Public</Access>
+        <Location left="270" top="294" />
+        <Size width="237" height="188" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">boolean verificarEstado(double kmTotal)</Member>
+        <Member type="Method">void manutencaoPeca()</Member>
+        <Member type="Method">void manutencaoPeriodica()</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>Carro</Name>
+        <Access>Public</Access>
+        <Location left="2184" top="348" />
+        <Size width="234" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static double TANQUE_CARRO = 50</Member>
+        <Member type="Field">private static double PERIODICA_CARRO = 10000</Member>
+        <Member type="Field">private static double TROCA_PECAS_CARRO = 10000</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Caminhao</Name>
+        <Access>Public</Access>
+        <Location left="2219" top="743" />
+        <Size width="248" height="130" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static double TANQUE_CAMINHAO = 80</Member>
+        <Member type="Field">private static double PERIODICA_CAMINHAO = 20000</Member>
+        <Member type="Field">private static double TROCA_PECAS_CAMINHAO = 20000</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Van</Name>
+        <Access>Public</Access>
+        <Location left="2373" top="597" />
+        <Size width="222" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static double TANQUE_VAN = 60</Member>
+        <Member type="Field">private static double PERIDICA_VAN = 10000</Member>
+        <Member type="Field">private static double TROCA_PECAS_VAN = 12000</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Furgao</Name>
+        <Access>Public</Access>
+        <Location left="2083" top="499" />
+        <Size width="237" height="130" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static double TANQUE_FURGAO</Member>
+        <Member type="Field">private static double PERIODICA_FURGAO = 10000</Member>
+        <Member type="Field">private static double TROCA_PECAS_FURGAO = 12000</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="5" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1124</X>
+          <Y>664</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1113</X>
+          <Y>664</Y>
+        </BendPoint>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="4" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>687</X>
+          <Y>910</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>687</X>
+          <Y>956</Y>
+        </BendPoint>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="2" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="2" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="0" second="2">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="2" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>762</X>
+          <Y>480</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>983</X>
+          <Y>394</Y>
+        </BendPoint>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
