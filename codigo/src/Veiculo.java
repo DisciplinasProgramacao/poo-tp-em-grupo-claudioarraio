@@ -6,6 +6,8 @@ import java.time.LocalDate;
 public class Veiculo implements IRepara {
 
     private static int MAX_ROTAS = 30;
+    private static final Double valorManutencaoPecas = 150d;
+        private static final Double valorManutencaoPeriodica = 100d;
     private ArrayList<Rota> rotas;
     private String placa;
     private Tanque tanque;
@@ -169,7 +171,7 @@ public class Veiculo implements IRepara {
     public String toString() {
         return " ==================================\n\nPlaca do Veículo: " + placa + ", Tipo: " + tipoVeiculo + " \n" +
                 "KM Total : " + kmTotal()
-                + "\nTrocou de pecas: " + manutencaopecas +" vezes" + ", Manutencao Periodica: " + manutencaoperiodica
+                + "\n Custo Manutencao de pecas: " + manutencaopecas*valorManutencaoPecas +" vezes" + ", Custo Manutencao Periodica: " + manutencaoperiodica*valorManutencaoPecas
                 + tanque.toString() + "\n" + "\nROTAS: \n"+relatorioRotas(); 
     }
 

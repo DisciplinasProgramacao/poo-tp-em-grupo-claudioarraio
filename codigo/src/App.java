@@ -32,7 +32,7 @@ public class App {
 
     public static void menuVeiculo() throws IOException {
 
-        String nomeArq = "C:\\Users\\Corvo\\Desktop\\as\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\menuVeiculo.txt";
+        String nomeArq = "/Users/carlosdaniel/Documents/GitHub/poo-tp-em-grupo-claudioarraio/codigo/Util/menuVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
@@ -93,23 +93,18 @@ public class App {
     }
 
     public static void menuRelatorio() throws FileNotFoundException {
-        String nomeArq = "C:\\Users\\Corvo\\Desktop\\as\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\relatorioVeiculo.txt";
+        String nomeArq = "/Users/carlosdaniel/Documents/GitHub/poo-tp-em-grupo-claudioarraio/codigo/Util/relatorioVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
 
         switch (opcao) {
-            case 1:
-                System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
-                System.out.println(frota.localizarVeiculo(teclado.nextLine()).relatorioRotas());
-                pausa();
-                break;
-            case 2: // Relatório do veículo individual
+            case 1: // Relatório do veículo individual
                 System.out.println("  🚛🛻  INFORME A PLACA DO VEÍCULO 🚚🚗");
                 System.out.println(frota.localizarVeiculo(teclado.nextLine()));
                 pausa();
                 break;
-            case 3: // Relatório da Frota
+            case 2: // Relatório da Frota
                 System.out.println(frota.toString());
                 pausa();
                 break;
@@ -163,7 +158,7 @@ public class App {
     // #endregion
     public static void main(String[] args) throws Exception {
         teclado = new Scanner(System.in);
-        String nomeArq = "C:\\Users\\Corvo\\Desktop\\as\\poo-tp-em-grupo-claudioarraio\\codigo\\Util\\appFrota.txt";
+        String nomeArq = "/Users/carlosdaniel/Documents/GitHub/poo-tp-em-grupo-claudioarraio/codigo/Util/appFrota.txt";
         int opcao = 1;
         while (opcao != 0) {
             limparTela();
