@@ -1,3 +1,5 @@
+package src;
+
 public class Tanque {
     private Double capacidadeAtual;
     private Double capacidadeMax;
@@ -28,18 +30,19 @@ public class Tanque {
      */
 
     public void abastecer() {
-        double abs = capacidadeMax - capacidadeAtual;
+        double abs = capacidadeMax-capacidadeAtual;
         this.capacidadeAtual = capacidadeMax;
-        this.totalReabastecido += abs;
+        this.totalReabastecido+=abs;
     }
 
-    public boolean queimarCombustivel(double km) {
-        if (capacidadeAtual * combustivel.getConsumoMedio() >= km) {
-            capacidadeAtual -= km / combustivel.getConsumoMedio();
-            return true;
-        } else {
-            return false;
-        }
+    public boolean queimarCombustivel(double km){
+        if(capacidadeAtual*combustivel.getConsumoMedio()>=km){
+        capacidadeAtual -= km/combustivel.getConsumoMedio();
+        return true;
+    }
+    else{
+        return false;
+    }
 
     }
 
@@ -77,17 +80,20 @@ public class Tanque {
         return this.capacidadeAtual;
     }
 
-    public Double valorGastoCombustivel() {
 
-        return totalReabastecido * combustivel.getPrecoMedio();
+    public Double valorGastoCombustivel(){
+
+        return totalReabastecido*combustivel.getPrecoMedio();
+
 
     }
+
+
 
     @Override
     public String toString() {
 
-        return ", \n Combustivel: " + combustivel.toString() + ", Total Reabastecido: " + totalReabastecido
-                + ", Total gasto em combustivel: R$" + valorGastoCombustivel();
+        return ", \n Combustivel: "+combustivel.toString()+", Total Reabastecido: "+totalReabastecido+", Total gasto em combustivel: R$"+valorGastoCombustivel();
     }
 
 }

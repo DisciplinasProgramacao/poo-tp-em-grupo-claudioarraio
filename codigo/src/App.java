@@ -1,12 +1,9 @@
+package src;
+
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
-import javax.management.RuntimeErrorException;
 
-import java.util.Date;
-import java.security.InvalidAlgorithmParameterException;
 
 public class App {
 
