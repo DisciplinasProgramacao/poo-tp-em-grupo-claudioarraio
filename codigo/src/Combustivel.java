@@ -1,5 +1,3 @@
-package src;
-
 public enum Combustivel {
 
     ALCOOL(7d, 3.29),

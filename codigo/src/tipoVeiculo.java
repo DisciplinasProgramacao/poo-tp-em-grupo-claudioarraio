@@ -1,5 +1,3 @@
-package src;
-
 import java.util.*;
 import java.time.LocalDate;
 
@@ -7,7 +5,7 @@ public class Veiculo implements IRepara {
 
     private static int MAX_ROTAS = 30;
     private static final Double valorManutencaoPecas = 150d;
-        private static final Double valorManutencaoPeriodica = 100d;
+    private static final Double valorManutencaoPeriodica = 100d;
     private ArrayList<Rota> rotas;
     private String placa;
     private Tanque tanque;
@@ -27,7 +25,8 @@ public class Veiculo implements IRepara {
         this.rotas = new ArrayList<Rota>(MAX_ROTAS);
         this.placa = placa;
         this.tipoVeiculo = veiculo;
-        this.tanque = tanque;;
+        this.tanque = tanque;
+        ;
     }
 
     public int quantRotas() {
@@ -51,7 +50,7 @@ public class Veiculo implements IRepara {
         Rota rota = new Rota(km);
         StringBuilder aux = new StringBuilder();
         if (rotas.size() <= MAX_ROTAS) {
-            if(tanque.autonomiaAtual()<rota.getQuilometragem()){
+            if (tanque.autonomiaAtual() < rota.getQuilometragem()) {
                 abastecer();
             }
             rotas.add(rota);
@@ -64,7 +63,7 @@ public class Veiculo implements IRepara {
         return aux.toString();
     }
 
-    public void abastecer(){
+    public void abastecer() {
         this.tanque.abastecer();
     }
     // #endregion
@@ -171,11 +170,9 @@ public class Veiculo implements IRepara {
     public String toString() {
         return " ==================================\n\nPlaca do Veículo: " + placa + ", Tipo: " + tipoVeiculo + " \n" +
                 "KM Total : " + kmTotal()
-                + "\n Custo Manutencao de pecas: " + manutencaopecas*valorManutencaoPecas +" vezes" + ", Custo Manutencao Periodica: " + manutencaoperiodica*valorManutencaoPecas
-                + tanque.toString() + "\n" + "\nROTAS: \n"+relatorioRotas(); 
+                + "\n Custo Manutencao de pecas: " + manutencaopecas * valorManutencaoPecas + " vezes"
+                + ", Custo Manutencao Periodica: " + manutencaoperiodica * valorManutencaoPecas
+                + tanque.toString() + "\n" + "\nROTAS: \n" + relatorioRotas();
     }
-
-
-
 
 }

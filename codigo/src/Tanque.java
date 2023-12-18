@@ -1,41 +1,3 @@
-<<<<<<< HEAD
-public class Tanque {
-    private static final Double CONSUMO = 8.2;
-    private Double capacidadeAtual;
-    private Double capacidadeMax;
-
-    public Tanque(Double capacidadeAtual, Double capacidadeMax) {
-        this.capacidadeAtual = capacidadeAtual;
-        this.capacidadeMax = capacidadeMax;
-    }
-
-    public Double abastecer(Double litros) {
-
-        capacidadeAtual += litros;
-
-        return capacidadeAtual;
-
-    }
-
-    public Double autonomiaMaxima() {
-
-        return this.capacidadeAtual * CONSUMO;
-
-    }
-
-    public Double autonomiaAtual() {
-        return this.capacidadeAtual * CONSUMO;
-
-    }
-
-    public Double getCapacidadeAtual() {
-        return this.capacidadeAtual;
-    }
-
-}
-=======
-package src;
-
 public class Tanque {
     private Double capacidadeAtual;
     private Double capacidadeMax;
@@ -66,19 +28,18 @@ public class Tanque {
      */
 
     public void abastecer() {
-        double abs = capacidadeMax-capacidadeAtual;
+        double abs = capacidadeMax - capacidadeAtual;
         this.capacidadeAtual = capacidadeMax;
-        this.totalReabastecido+=abs;
+        this.totalReabastecido += abs;
     }
 
-    public boolean queimarCombustivel(double km){
-        if(capacidadeAtual*combustivel.getConsumoMedio()>=km){
-        capacidadeAtual -= km/combustivel.getConsumoMedio();
-        return true;
-    }
-    else{
-        return false;
-    }
+    public boolean queimarCombustivel(double km) {
+        if (capacidadeAtual * combustivel.getConsumoMedio() >= km) {
+            capacidadeAtual -= km / combustivel.getConsumoMedio();
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
@@ -116,21 +77,17 @@ public class Tanque {
         return this.capacidadeAtual;
     }
 
+    public Double valorGastoCombustivel() {
 
-    public Double valorGastoCombustivel(){
-
-        return totalReabastecido*combustivel.getPrecoMedio();
-
+        return totalReabastecido * combustivel.getPrecoMedio();
 
     }
-
-
 
     @Override
     public String toString() {
 
-        return ", \n Combustivel: "+combustivel.toString()+", Total Reabastecido: "+totalReabastecido+", Total gasto em combustivel: R$"+valorGastoCombustivel();
+        return ", \n Combustivel: " + combustivel.toString() + ", Total Reabastecido: " + totalReabastecido
+                + ", Total gasto em combustivel: R$" + valorGastoCombustivel();
     }
 
 }
->>>>>>> ultimo

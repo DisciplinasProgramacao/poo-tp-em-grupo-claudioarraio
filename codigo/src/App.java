@@ -1,95 +1,3 @@
-<<<<<<< HEAD
-import java.time.*;
-import java.util.*;
-
-// inserir cadastro de carros:placa;
-// inserir abastecimento de carros:placa;
-//corrigir erro do switch 0 entrando no método programa;
-
-public class App {
-
-    public static void limparTela() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    public static void iniciarPrograma(int opcao, Scanner sc) {
-        System.out.println("1 - Abrir programa");
-        System.out.println("0 - Sair");
-        System.out.println(" ");
-        System.out.println("Insira uma opçãoo: ");
-        System.out.println(" ");
-        opcao = sc.nextInt();
-
-        switch (opcao) {
-            case 1:
-                exibirMenu();
-                programa(opcao, sc);
-                break;
-            case 0:
-                System.out.println("Saindo do sistema...");
-                break;
-        }
-    }
-
-    public static void exibirMenu() {
-
-        System.out.println(" ");
-        System.out.println("Abrindo o programa...");
-        System.out.println("====================");
-        System.out.println("1 - Cadastrar carro; ");
-        System.out.println("2 - Abastecer veículo; ");
-        System.out.println("3 - Exibir a quantidade de gasolina abastecida de cada veículo; ");
-        System.out.println("4 - Exibir a quilometragem do veículo no mês atual; ");
-        System.out.println("5 - Exibir a quilometragem total do veículo; ");
-        System.out.println("0 - Sair do programa; ");
-    }
-
-    public static void programa(int opcao, Scanner sc) {
-
-        while (opcao != 0) {
-            System.out.println(" ");
-            System.out.println("Insira uma opção1: ");
-            System.out.println(" ");
-            opcao = sc.nextInt();
-            switch (opcao) {
-                case 0:
-                    System.out.println("Saindo do sistema");
-                    break;
-                case 1:
-                    break;
-                case 3:
-                    System.out.println("A quantidade abastecida foi " + Veiculo.getTotalReabastecido() + " litros.");
-                    break;
-                case 4:
-                    System.out.println(
-                            "A quilometragem do veículo no mês atual foi de " + Veiculo.getKmNoMes() + " Kms.");
-                    break;
-                case 5:
-                    System.out.println("A quilometragem total do veículo " + Veiculo.getPlaca() + " foi de "
-                            + Veiculo.getKmTotal() + " Kms.");
-                    break;
-                default:
-                    System.out.println("Número inválido. Tente novamente.");
-                    break;
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        limparTela();
-        Scanner sc = new Scanner(System.in);
-        int opcao = -1;
-
-        iniciarPrograma(opcao, sc);
-
-        sc.close();
-    }
-
-}
-=======
-package src;
-
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -122,7 +30,7 @@ public class App {
 
     public static void menuVeiculo() throws IOException {
 
-        String nomeArq = "/Users/carlosdaniel/Documents/GitHub/poo-tp-em-grupo-claudioarraio/codigo/Util/menuVeiculo.txt";
+        String nomeArq = "codigo\\Util\\menuVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
@@ -184,7 +92,7 @@ public class App {
     }
 
     public static void menuRelatorio() throws FileNotFoundException {
-        String nomeArq = "/Users/carlosdaniel/Documents/GitHub/poo-tp-em-grupo-claudioarraio/codigo/Util/relatorioVeiculo.txt";
+        String nomeArq = "codigo\\Util\\relatorioVeiculo.txt";
         int opcao = -1;
         limparTela();
         opcao = menu(nomeArq);
@@ -249,7 +157,7 @@ public class App {
     // #endregion
     public static void main(String[] args) throws Exception {
         teclado = new Scanner(System.in);
-        String nomeArq = "/Users/carlosdaniel/Documents/GitHub/poo-tp-em-grupo-claudioarraio/codigo/Util/appFrota.txt";
+        String nomeArq = "codigo\\Util\\appFrota.txt";
         int opcao = 1;
         while (opcao != 0) {
             limparTela();
@@ -274,8 +182,4 @@ public class App {
         teclado.close();
     }
 
-
-
-
 }
->>>>>>> ultimo
