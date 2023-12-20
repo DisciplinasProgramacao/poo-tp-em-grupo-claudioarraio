@@ -1,0 +1,6 @@
+🚛🛻  MENU VEÍCULO 🚚🚗
+Cadastrar veículo
+Cadastrar rota
+Abaster veículo
+Localizar veículo
+Percorrer rota
