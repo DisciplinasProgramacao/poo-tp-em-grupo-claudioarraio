@@ -1,6 +1,12 @@
 # Correcao
+  
+  - bagunça no commit: pacote 'src' que não existe.
+  - veículo aceita qualquer tamanho de rota
+  - formato de data no relatório
+  - sem base de teste
+  - RunTime exception: genérico demais
 
-## Nota obtida  4
+## Nota obtida  ~~4~~ 11
 
 ## Comentários
 
